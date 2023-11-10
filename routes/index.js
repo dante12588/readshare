@@ -10,7 +10,8 @@ router.use('/', viewsRouter);
 
 router.get('/', (req, res) => {
     res.render('home', {
-        title: 'Strona główna'
+        title: 'Strona główna',
+        userName: req.session.userName ? req.session.userName : 'nieznajomy'
     });
 });
 

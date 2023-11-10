@@ -3,6 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const hbs  = require('express-handlebars');
 const routes = require('./routes/index');
+const session = require('express-session');
 
 const app = express();
 const port = 4000;
@@ -10,6 +11,12 @@ const port = 4000;
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(session({
+  secret: 'codziennie gram na flecie',
+  resave: false,
+  saveUninitialized: false
+}));
 
 app.engine('handlebars', hbs.engine({
     defaultLayout: "main"
