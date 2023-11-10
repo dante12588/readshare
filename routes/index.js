@@ -4,7 +4,7 @@ const router = express.Router();
 const usersRouter = require('./users');
 const viewsRouter = require('./views');
 
-router.use('/', usersRouter);
+router.use('/users', usersRouter);
 router.use('/', viewsRouter);
 
 
