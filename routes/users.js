@@ -24,6 +24,11 @@ router.post('/login', (req, res) => {
         })
         .catch(err => console.error(err));
 });
+
+router.get('/logout', (req, res) => {
+    req.session.destroy();
+    res.redirect('/');
+});
   
 // Dodawanie nowego użytkownika
 router.post('', (req, res) => {
@@ -37,7 +42,7 @@ router.post('', (req, res) => {
                 res.sendStatus(409);
             } else {
                 userDb.addUser(mail, passwd);
-                res.sendStatus(200);
+                res.redirect('/');
             }
         })
         .catch(err => console.error(err));
