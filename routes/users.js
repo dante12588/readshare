@@ -60,6 +60,14 @@ router.put('/:id', (req, res) => {
 // Usuwanie istniejącego użytkownika
 router.delete('/:id', (req, res) => {
 // Kod do obsługi usuwania istniejącego użytkownika
+    const id = req.params.id;
+    userDb.deleteUser(id)
+        .then(data => {
+            console.log(data);
+        })
+        .catch(err => console.error(err));
+        req.session.destroy();
+        res.redirect('/');
 });
 
 module.exports = router;

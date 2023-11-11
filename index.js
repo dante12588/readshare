@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const hbs  = require('express-handlebars');
 const routes = require('./routes/index');
 const session = require('express-session');
+const methodOverride = require('method-override');
 
 const app = express();
 const port = 4000;
@@ -11,6 +12,8 @@ const port = 4000;
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(methodOverride('_method'));
 
 app.use(session({
   secret: 'codziennie gram na flecie',

@@ -18,16 +18,18 @@ const editUser = (id, mail, passwd) => {
     });
 };
 
-// const getUserByMail = (mail) => {
-//     sql = `SELECT * FROM users WHERE mail='${mail}'`;
-//     let data;
-//     db.query(sql, (err, result) => {
-//         if (err) throw err;
-//         data = result;
-//     });
-//     return data;
-    
-// };
+const deleteUser = (id) => {
+    return new Promise((resolve, reject) => {
+        let sql = `DELETE FROM users WHERE idusers=${id}`;
+        db.query(sql, (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        })
+    });
+}
 
 const getUserByMail = (mail) => {
     return new Promise((resolve, reject) => {
@@ -45,5 +47,6 @@ const getUserByMail = (mail) => {
 module.exports = {
     addUser,
     editUser,
-    getUserByMail
+    getUserByMail,
+    deleteUser
 }

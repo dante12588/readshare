@@ -5,3 +5,8 @@
     <input type="text" name="passwd" placeholder="Podaj haslo">
     <input type="submit" value="Zapisz">
 </form>
+
+<form method="POST" action="/users/{{id}}?_method=DELETE">
+  <input type="hidden" name="_method" value="DELETE">
+  <button type="submit">Usuń konto</button>
+</form>

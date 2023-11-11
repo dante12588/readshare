@@ -21,6 +21,7 @@
     "nodemon": "^3.0.1"
   },
   "dependencies": {
-    "express-session": "^1.17.3"
+    "express-session": "^1.17.3",
+    "method-override": "^3.0.0"
   }
 }
