@@ -1,12 +1,22 @@
 <h1>Witaj {{userName}}! </h1>
 
+
+<h2>Dodawanie nowego użytkownika</h2>
 <form action="/users" method="post">
     <input type="text" name="mail" placeholder="Podaj mail">
     <input type="text" name="passwd" placeholder="Podaj haslo">
     <input type="submit" value="Zapisz">
 </form>
 
+
+<h2>Usuwanie użytkownika</h2>
 <form method="POST" action="/users/{{id}}?_method=DELETE">
   <input type="hidden" name="_method" value="DELETE">
   <button type="submit">Usuń konto</button>
 </form>
+
+
+<h2>Użytkownicy</h2>
+{{#each users}}
+    <p>{{this.mail}} - {{this.passwd}}</p>
+{{/each}}

@@ -33,6 +33,7 @@ router.get('/logout', (req, res) => {
 // Dodawanie nowego użytkownika
 router.post('', (req, res) => {
 // Kod do obsługi dodawania nowego użytkownika
+    console.log('Received POST request to add user');
     const mail = req.body.mail;
     const passwd = req.body.passwd;
     userDb.getUserByMail(mail)
@@ -41,8 +42,12 @@ router.post('', (req, res) => {
                 console.log('Użytkownik o podanym adresie email już istnieje');
                 res.sendStatus(409);
             } else {
-                userDb.addUser(mail, passwd);
-                res.redirect('/');
+                userDb.addUser(mail, passwd)
+                    .then(() => {
+                        console.log('Dodano nowego użytkownika');
+                        res.redirect('/');
+                    })
+                    .catch(err => console.error(err));
             }
         })
         .catch(err => console.error(err));
