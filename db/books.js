@@ -12,6 +12,19 @@ const addBook = (title, author, year, description, userid) => {
     });
 };
 
+const getBooksByUserId = (userid) => {
+    return new Promise((resolve, reject) => {
+        sql = `SELECT * FROM books WHERE userid=${userid}`;
+        db.query(sql, (err, rows) => {
+            if (err) {
+                reject(err);
+            }
+            resolve(rows);    
+        });
+    });
+}
+
 module.exports = {
-    addBook
+    addBook,
+    getBooksByUserId
 }
