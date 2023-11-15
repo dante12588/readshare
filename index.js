@@ -14,6 +14,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(methodOverride('_method'));
 
+app.use(express.static('public'));
+
 app.use(session({
   secret: 'codziennie gram na flecie',
   resave: false,

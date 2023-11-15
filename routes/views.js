@@ -21,7 +21,7 @@ router.get('/login', (req, res) => {
     });
 });
 
-router.get('/books', requireLogin, (req, res) => {
+router.get('/books', (req, res) => {
     res.render('books', {
         title: 'Książki'
     });

@@ -4,11 +4,7 @@ const bookDB = require('../db/books');
 
 //dodawanie książek
 router.post('', (req, res) => {
-    // bookDB.addBook('Atlas chmur', 'autor', 1233, 'jakis tam opis', 92);
-    // bookDB.addBook('Cień wiatru', 'autor', 1233, 'jakis tam opis', 92);
-    // bookDB.addBook('Miasto kości', 'autor', 1233, 'jakis tam opis', 92);
-    // bookDB.addBook('Czerwień Rubinu', 'autor', 1233, 'jakis tam opis', 92);
-    // bookDB.addBook('Gwiazd naszych wina', 'autor', 1233, 'jakis tam opis', 92);
+    bookDB.addBook(req.body.title, req.body.author, req.body.year, req.body.description, 12);
     res.sendStatus(200);
 })
 
@@ -22,8 +18,37 @@ router.post('/userid', (req, res) => {
     }).catch(err => console.error(err));
 })
 
-//edycja ksiazek
+//Pobieranie wszystkich książek
+router.get('/all', (req, res) => {
+    bookDB.getAllBooks()
+    .then(data => {
+        res.json(data);
+    }).catch(err => console.error(err));
+});
 
+//Pobieranie książek danego użytkownika
+router.get('/byid', (req, res) => {
+    bookDB.getBooksByUserId(req.session.userId)
+        .then(data => {
+            res.json(data);
+        }).catch(err => console.error(err));
+});
+
+//Pobieranie książek o podanym tytule lub autorze
+router.post('/search', (req, res) => {
+    const search = req.body.search;
+    console.log(`Wyszukuje książki o frazie ${search}`);
+    bookDB.getBooksByTitleOrAuthor(search)
+    .then(data => {
+        res.json(data);
+    }).catch(err => console.error(err));
+})
+
+//edycja ksiazek
+router.put('/edit', (req, res) => {
+    bookDB.editBook(req.body.id, req.body.title, req.body.author, req.body.year, req.body.description);
+    res.sendStatus(200);
+});
 //usuwanie ksiazek
 
 module.exports = router;

@@ -1,5 +1,21 @@
-<h1>Strona z ksiazkami</h1>
+<h1>Moje książki</h1>
 
+<style>
+    input, button{
+        margin: 10px 0;
+    }
+</style>
 
+<form action="/books" method="post">
+    <h2>Dodaj nową</h2>
+    <input type="text" name="title" placeholder="tytuł"><br>
+    <input type="text" name="author" placeholder="autor"><br>
+    <input type="text" name="year" placeholder="rok"><br>
+    <input type="text" name="description" placeholder="opis"><br>
+    <button id="button" type="submit">Dodaj</button>
+</form>
 
+<h2>Twoje książki</h2>
+<div class="books"></div>
 
+<script src="js/books.js"></script>

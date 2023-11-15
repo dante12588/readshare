@@ -21,7 +21,7 @@
     <p>{{this.mail}} - {{this.passwd}}</p>
 {{/each}}
 
-<button id="btn">BTN</button>
+{{!-- <button id="btn">BTN</button>
 
 <div class="books">
 
@@ -43,6 +43,33 @@
         res.forEach(book=>{
           const div = document.createElement('div');
           div.innerHTML = `<p>${book.title}</p><p>${book.idbooks}</p>`;
+          document.querySelector('.books').appendChild(div);
+        })
+
+      }
+    })
+  });
+</script> --}}
+
+<input id="search" type="text" name="search">
+
+<div class="books"></div>
+
+<script>
+  const search = document.querySelector('#search');
+  search.addEventListener('keyup', ()=>{
+    $.ajax({
+      url: `/books/search`,
+      method: 'POST',
+      data: {
+        search: search.value
+      },
+      success: (res)=>{
+
+        document.querySelector('.books').innerHTML = '';
+        res.forEach(book=>{
+          const div = document.createElement('div');
+          div.innerHTML = `<p>${book.title} - ${book.author}</p>`;
           document.querySelector('.books').appendChild(div);
         })
 
