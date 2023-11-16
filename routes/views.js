@@ -1,16 +1,21 @@
 const router = require('express').Router();
 const requireLogin = require('../middleware/requireLogin');
 const userDb = require('../db/users');
+const bookDb = require('../db/books');
 
 router.get('/', (req, res) => {
-    userDb.getUsers()
-        .then(data => {
-            res.render('home', {
-                title: 'Strona główna',
-                userName: req.session.userName,
-                id: req.session.userId,
-                users: data
-            });
+    bookDb.getBestBooks(2)
+        .then(bestBooks => {
+            return bookDb.getLastBooks(2)
+                .then(lastBooks => {
+                    res.render('home', {
+                        title: 'Strona główna',
+                        userName: req.session.userName,
+                        id: req.session.userId,
+                        bestBooks: bestBooks,
+                        lastBooks: lastBooks
+                    });
+                });
         })
         .catch(err => console.error(err));
 });

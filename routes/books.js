@@ -15,6 +15,13 @@ router.get('/best', (req, res) => {
     }).catch(err => console.error(err));
 });
 
+router.get('/last', (req, res) => {
+    bookDB.getLastBooks(2)
+    .then(data => {
+        res.json(data);
+    }).catch(err => console.error(err));
+});
+
 //Wyświetlanie ksiażek danego użytkownika
 router.post('/userid', (req, res) => {
     const userId = req.body.userId;

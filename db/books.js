@@ -26,6 +26,18 @@ const getBestBooks = (numbresBooks) => {
     });
 };
 
+const getLastBooks = (numbresBooks) => {
+    return new Promise((resolve, reject) => {
+        sql = `SELECT * FROM books ORDER BY date DESC LIMIT ${numbresBooks}`;
+        db.query(sql, (err, rows) => {
+            if (err) {
+                reject(err);
+            }
+            resolve(rows);
+        });
+    });
+};
+
 //pobieranie książek danego użytkownika
 
 const getBooksByUserId = (userid) => {
@@ -80,5 +92,6 @@ module.exports = {
     getBooksByTitleOrAuthor,
     getAllBooks,
     editBook,
-    getBestBooks
+    getBestBooks,
+    getLastBooks
 }
