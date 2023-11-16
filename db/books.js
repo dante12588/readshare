@@ -3,8 +3,8 @@ const db = require('./index');
 let sql;
 
 //dodawanie książki do bazy
-const addBook = (title, author, year, description, userid) => {
-    sql = `INSERT INTO books (title, author, year, description, userid, date) VALUES ('${title}', '${author}', '${year}', '${description}', '${userid}', NOW())`;
+const addBook = (title, author, year, description, userid, img) => {
+    sql = `INSERT INTO books (title, author, year, description, userid, img, date) VALUES ('${title}', '${author}', '${year}', '${description}', '${userid}', '${img}', NOW())`;
     db.query(sql, (err) => {
         if (err) {
             return console.error(err.message);

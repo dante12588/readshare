@@ -34,6 +34,13 @@ router.get('/register', (req, res) => {
     });
 });
 
+router.get('/addbook', (req, res) => {
+    res.render('addbook', {
+        title: 'Dodaj książkę',
+        userName: req.session.userName,
+    });
+});
+
 router.get('/books', (req, res) => {
     res.render('books', {
         title: 'Książki',

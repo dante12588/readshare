@@ -1,9 +1,21 @@
 const router = require('express').Router();
 const bookDB = require('../db/books');
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, 'public/uploads/')
+    },
+    filename: function(req, file, cb) {
+        cb(null, file.originalname)
+    }
+});
+
+const upload = multer({ storage: storage });
 
 //dodawanie książek
-router.post('', (req, res) => {
-    bookDB.addBook(req.body.title, req.body.author, req.body.year, req.body.description, 12);
+router.post('', upload.single('bookCover'), (req, res) => {
+    bookDB.addBook(req.body.title, req.body.author, req.body.year, req.body.description, 12, req.file.originalname);
     res.sendStatus(200);
 })
 
