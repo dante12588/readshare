@@ -27,6 +27,12 @@ router.get('/books', (req, res) => {
     });
 });
 
+router.get('/books/edit', (req, res) => {
+    res.render('editbook', {
+        title: 'Edycja książki'
+    });
+});
+
 router.get('/trade', requireLogin, (req, res) => {
     res.render('trade', {
         title: 'Wymiana'

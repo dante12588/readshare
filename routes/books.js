@@ -1,12 +1,19 @@
 const router = require('express').Router();
 const bookDB = require('../db/books');
-//  ( router /book + -> )
 
 //dodawanie książek
 router.post('', (req, res) => {
     bookDB.addBook(req.body.title, req.body.author, req.body.year, req.body.description, 12);
     res.sendStatus(200);
 })
+
+//Pobieranie najlepszych książek
+router.get('/best', (req, res) => {
+    bookDB.getBestBooks(2)
+    .then(data => {
+        res.json(data);
+    }).catch(err => console.error(err));
+});
 
 //Wyświetlanie ksiażek danego użytkownika
 router.post('/userid', (req, res) => {

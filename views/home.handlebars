@@ -1,79 +1,11 @@
-<h1>Witaj {{userName}}! </h1>
+<h1>Strona główna</h1>
 
+<h2>Najbardziej polularne propozycje</h2>
 
-<h2>Dodawanie nowego użytkownika</h2>
-<form action="/users" method="post">
-    <input type="text" name="mail" placeholder="Podaj mail">
-    <input type="text" name="passwd" placeholder="Podaj haslo">
-    <input type="submit" value="Zapisz">
-</form>
+xxx
 
+<h2>Ostatnio dodane</h2>
 
-<h2>Usuwanie użytkownika</h2>
-<form method="POST" action="/users/{{id}}?_method=DELETE">
-  <input type="hidden" name="_method" value="DELETE">
-  <button type="submit">Usuń konto</button>
-</form>
+xxx
 
-
-<h2>Użytkownicy</h2>
-{{#each users}}
-    <p>{{this.mail}} - {{this.passwd}}</p>
-{{/each}}
-
-{{!-- <button id="btn">BTN</button>
-
-<div class="books">
-
-</div>
-
-<script>
-  const userId = 12;
-  const btn = document.querySelector('#btn');
-  btn.addEventListener('click', ()=>{
-    $.ajax({
-      url: `/books/userid`,
-      method: 'POST',
-      data: {
-        userId: userId
-      },
-      success: (res)=>{
-
-        document.querySelector('.books').innerHTML = '';
-        res.forEach(book=>{
-          const div = document.createElement('div');
-          div.innerHTML = `<p>${book.title}</p><p>${book.idbooks}</p>`;
-          document.querySelector('.books').appendChild(div);
-        })
-
-      }
-    })
-  });
-</script> --}}
-
-<input id="search" type="text" name="search">
-
-<div class="books"></div>
-
-<script>
-  const search = document.querySelector('#search');
-  search.addEventListener('keyup', ()=>{
-    $.ajax({
-      url: `/books/search`,
-      method: 'POST',
-      data: {
-        search: search.value
-      },
-      success: (res)=>{
-
-        document.querySelector('.books').innerHTML = '';
-        res.forEach(book=>{
-          const div = document.createElement('div');
-          div.innerHTML = `<p>${book.title} - ${book.author}</p>`;
-          document.querySelector('.books').appendChild(div);
-        })
-
-      }
-    })
-  });
-</script>
+<script src="js/home.js"></script>

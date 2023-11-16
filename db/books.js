@@ -2,8 +2,9 @@ const db = require('./index');
 
 let sql;
 
+//dodawanie książki do bazy
 const addBook = (title, author, year, description, userid) => {
-    sql = `INSERT INTO books (title, author, year, description, userid) VALUES ('${title}', '${author}', '${year}', '${description}', '${userid}')`;
+    sql = `INSERT INTO books (title, author, year, description, userid, date) VALUES ('${title}', '${author}', '${year}', '${description}', '${userid}', NOW())`;
     db.query(sql, (err) => {
         if (err) {
             return console.error(err.message);
@@ -11,6 +12,21 @@ const addBook = (title, author, year, description, userid) => {
         console.log(`Row(s) inserted`);
     });
 };
+
+//pobieranie najlepszych książek w ilości podanej w argumencie
+const getBestBooks = (numbresBooks) => {
+    return new Promise((resolve, reject) => {
+        sql = `SELECT * FROM books ORDER BY rate DESC LIMIT ${numbresBooks}`;
+        db.query(sql, (err, rows) => {
+            if (err) {
+                reject(err);
+            }
+            resolve(rows);
+        });
+    });
+};
+
+//pobieranie książek danego użytkownika
 
 const getBooksByUserId = (userid) => {
     return new Promise((resolve, reject) => {
@@ -63,5 +79,6 @@ module.exports = {
     getBooksByUserId,
     getBooksByTitleOrAuthor,
     getAllBooks,
-    editBook
+    editBook,
+    getBestBooks
 }
