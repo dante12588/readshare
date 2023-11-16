@@ -4,11 +4,16 @@
   img{
     max-width: 100px;
   }
+  .books{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
 </style>
 
 <h2>Najbardziej polularne propozycje</h2>
 
-<div class="bestBooks">
+<div class="bestBooks books">
     {{#each bestBooks}}
         <div class="book">
             <img src="image/books/{{this.img}}" alt="{{this.title}}">
@@ -21,7 +26,7 @@
 
 <h2>Ostatnio dodane</h2>
 
-<div class="lastBooks">
+<div class="lastBooks books">
     {{#each lastBooks}}
         <div class="book">
             <img src="image/books/{{this.img}}" alt="{{this.title}}">
