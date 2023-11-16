@@ -22,25 +22,36 @@ router.get('/', (req, res) => {
 
 router.get('/login', (req, res) => {
     res.render('login', {
-        title: 'Logowanie'
+        title: 'Logowanie',
+        userName: req.session.userName,
+    });
+});
+
+router.get('/register', (req, res) => {
+    res.render('register', {
+        title: 'Rejestracja',
+        userName: req.session.userName,
     });
 });
 
 router.get('/books', (req, res) => {
     res.render('books', {
-        title: 'Książki'
+        title: 'Książki',
+        userName: req.session.userName,
     });
 });
 
 router.get('/books/edit', (req, res) => {
     res.render('editbook', {
-        title: 'Edycja książki'
+        title: 'Edycja książki',
+        userName: req.session.userName,
     });
 });
 
 router.get('/trade', requireLogin, (req, res) => {
     res.render('trade', {
-        title: 'Wymiana'
+        title: 'Wymiana',
+        userName: req.session.userName,
     });
 });
 
@@ -49,7 +60,8 @@ router.get('/allusers',(req, res) =>{
         .then(data => {
             res.render('users', {
                 title: 'Użytkownicy',
-                users: data
+                users: data,
+                userName: req.session.userName,
             });
         })
         .catch(err => console.error(err));

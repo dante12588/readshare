@@ -2,17 +2,20 @@
 <html>
 <head>
     <title>Moja aplikacja</title>
-
     <link rel="stylesheet" href="/style/style.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <nav>
+
     <a href="/">Strona główna</a>
-    <a href="/login">Login</a>
+    {{#if userName}}
+        <a href="/users/logout">Wyloguj</a>
+    {{else}}
+        <a href="/login">Zaloguj się</a>
+    {{/if}}
     <a href="/books">ksiazki</a>
     <a href="/trade">wymiana</a>
-    <a href="/users/logout">Wyloguj</a>
     <a href="/allusers">Użytkownicy</a>
 </nav>
 <body>
