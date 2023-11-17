@@ -5,23 +5,12 @@
   <h2>Witaj nieznajomy</h2>
 {{/if}}
 
-<style>
-  img{
-    max-width: 100px;
-  }
-  .books{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-</style>
-
 <h2>Najbardziej polularne propozycje</h2>
 
 <div class="bestBooks books">
     {{#each bestBooks}}
         <div class="book">
-            <img src="image/books/{{this.img}}" alt="{{this.title}}">
+            <img src="uploads/{{this.img}}" alt="{{this.title}}">
             <p>{{this.title}}</p>
             <p>{{this.author}}</p>
             <p>{{this.description}}</p>
@@ -34,7 +23,7 @@
 <div class="lastBooks books">
     {{#each lastBooks}}
         <div class="book">
-            <img src="image/books/{{this.img}}" alt="{{this.title}}">
+            <img src="uploads/{{this.img}}" alt="{{this.title}}">
             <p>{{this.title}}</p>
             <p>{{this.author}}</p>
             <p>{{this.description}}</p>

@@ -26,6 +26,7 @@ const getBestBooks = (numbresBooks) => {
     });
 };
 
+//Pobierz ostatnie książki w ilości podanej w argumencie
 const getLastBooks = (numbresBooks) => {
     return new Promise((resolve, reject) => {
         sql = `SELECT * FROM books ORDER BY date DESC LIMIT ${numbresBooks}`;
@@ -52,6 +53,22 @@ const getBooksByUserId = (userid) => {
     });
 }
 
+//pobierz książki danego użytkownika w ilości podanej w argumencie
+
+const getBooksByUserIdLimit = (userid, limit) => {
+    return new Promise((resolve, reject) => {
+        sql = `SELECT * FROM books WHERE userid=${userid} ORDER BY date DESC LIMIT ${limit}`;
+        db.query(sql, (err, rows) => {
+            if (err) {
+                reject(err);
+            }
+            resolve(rows);    
+        });
+    });
+};
+
+//pobieranie książek po tytule lub autorze
+
 const getBooksByTitleOrAuthor = (string) => {
     return new Promise((resolve, reject) => {
         sql = `SELECT * FROM books WHERE title LIKE '%${string}%' or author LIKE '%${string}%'`;
@@ -64,6 +81,7 @@ const getBooksByTitleOrAuthor = (string) => {
     });
 };
 
+//pobieranie wszystkich książek
 const getAllBooks = () => {
     return new Promise((resolve, reject) => {
         sql = `SELECT * FROM books`;
@@ -76,6 +94,7 @@ const getAllBooks = () => {
     });
 };
 
+//edycja książki
 const editBook = (id, title, author, year, description) => {
     sql = `UPDATE books SET title='${title}', author='${author}', year='${year}', description='${description}' WHERE idbooks=${id}`;
     db.query(sql, (err) => {
@@ -93,5 +112,6 @@ module.exports = {
     getAllBooks,
     editBook,
     getBestBooks,
-    getLastBooks
+    getLastBooks,
+    getBooksByUserIdLimit
 }

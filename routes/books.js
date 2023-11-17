@@ -15,8 +15,19 @@ const upload = multer({ storage: storage });
 
 //dodawanie książek
 router.post('', upload.single('bookCover'), (req, res) => {
-    bookDB.addBook(req.body.title, req.body.author, req.body.year, req.body.description, 12, req.file.originalname);
-    res.sendStatus(200);
+    if(req.session.userId){
+        bookDB.addBook(req.body.title, req.body.author, req.body.year, req.body.description, req.session.userId, req.file.originalname);
+        bookDB.getBooksByUserIdLimit(req.session.userId, 7)
+            .then(lastBooks => {
+                res.render('addbook', {
+                    title: 'Dodaj książkę',
+                    userName: req.session.userName,
+                    message: 'Książka została dodana',
+                    lastBooks: lastBooks
+                });
+            });
+    }
+    // res.sendStatus(200);
 })
 
 //Pobieranie najlepszych książek

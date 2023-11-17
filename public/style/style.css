@@ -1,3 +1,6 @@
+*{
+    font-family: Arial, Helvetica, sans-serif;
+}
 nav{
     display: flex;
     justify-content: space-around;
@@ -41,3 +44,18 @@ input[type="submit"]{
     font-weight: bold;
     cursor: pointer;
 }
+
+.message{
+    color: seagreen;
+    font-size: 20px;
+    font-weight: bold;
+}
+img{
+    max-width: 200px;
+}
+
+.books{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }

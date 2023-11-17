@@ -34,11 +34,18 @@ router.get('/register', (req, res) => {
     });
 });
 
-router.get('/addbook', (req, res) => {
-    res.render('addbook', {
-        title: 'Dodaj książkę',
-        userName: req.session.userName,
-    });
+
+
+router.get('/addbook', requireLogin, (req, res) => {
+    bookDb.getBooksByUserIdLimit(req.session.userId, 2)
+        .then(lastBooks => {
+            console.log(lastBooks);
+            res.render('addbook', {
+                title: 'Dodaj książkę',
+                userName: req.session.userName,
+                lastBooks: lastBooks
+            });
+        });
 });
 
 router.get('/books', (req, res) => {

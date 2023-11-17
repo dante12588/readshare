@@ -7,5 +7,17 @@
         <input type="text" name="description" placeholder="opis">
         <input type="file" name="bookCover" accept="image/*">
         <input type="submit" value="Dodaj książkę">
+        <p class="message">{{message}}</p>
     </form>
+</div>
+
+<div class="lastBooks books">
+    {{#each lastBooks}}
+    <div class="book">
+        <img src="uploads/{{this.img}}" alt="{{this.title}}">
+        <p>{{this.title}}</p>
+        <p>{{this.author}}</p>
+        <p>{{this.description}}</p>
+    </div>
+    {{/each}}
 </div>
