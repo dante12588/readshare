@@ -4,6 +4,7 @@ const hbs  = require('express-handlebars');
 const routes = require('./routes/index');
 const session = require('express-session');
 const methodOverride = require('method-override');
+const handlebars = require('handlebars');
 
 const app = express();
 const port = 4000;
@@ -21,6 +22,10 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }));
+
+handlebars.registerHelper('eq', function(a, b) {
+  return a === b;
+});
 
 app.engine('handlebars', hbs.engine({
     defaultLayout: "main"

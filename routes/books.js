@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const bookDB = require('../db/books');
 const multer = require('multer');
+const { check, validationResult } = require('express-validator');
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
@@ -14,7 +15,33 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 //dodawanie książek
-router.post('', upload.single('bookCover'), (req, res) => {
+router.post('', upload.single('bookCover'), [
+    check('title').isLength({ min: 1 }).withMessage('Tytuł jest wymagany'),
+    check('author').isLength({ min: 1 }).withMessage('Autor jest wymagany'),
+    check('year').isLength({ min: 1 }).withMessage('Rok jest wymagany'),
+    check('description').isLength({ min: 1 }).withMessage('Opis jest wymagany'),
+    check('bookCover').custom((value, { req }) => {
+        if (!req.file) {
+            throw new Error('Plik jest wymagany');
+        }
+        return true;
+    })
+],(req, res) => {
+    const formData = req.body;
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        bookDB.getBooksByUserIdLimit(req.session.userId, 7)
+            .then(lastBooks => {
+                res.render('addbook', {
+                    title: 'Dodaj książkę',
+                    userName: req.session.userName,
+                    lastBooks: lastBooks,
+                    errors: errors.array(),
+                    formData: formData
+                });
+            });
+        return;
+    }
     if(req.session.userId){
         bookDB.addBook(req.body.title, req.body.author, req.body.year, req.body.description, req.session.userId, req.file.originalname);
         bookDB.getBooksByUserIdLimit(req.session.userId, 7)
@@ -23,7 +50,8 @@ router.post('', upload.single('bookCover'), (req, res) => {
                     title: 'Dodaj książkę',
                     userName: req.session.userName,
                     message: 'Książka została dodana',
-                    lastBooks: lastBooks
+                    lastBooks: lastBooks,
+                    errors: errors.array()
                 });
             });
     }

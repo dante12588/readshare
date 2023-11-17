@@ -54,7 +54,6 @@ const getBooksByUserId = (userid) => {
 }
 
 //pobierz książki danego użytkownika w ilości podanej w argumencie
-
 const getBooksByUserIdLimit = (userid, limit) => {
     return new Promise((resolve, reject) => {
         sql = `SELECT * FROM books WHERE userid=${userid} ORDER BY date DESC LIMIT ${limit}`;
@@ -66,7 +65,6 @@ const getBooksByUserIdLimit = (userid, limit) => {
         });
     });
 };
-
 //pobieranie książek po tytule lub autorze
 
 const getBooksByTitleOrAuthor = (string) => {

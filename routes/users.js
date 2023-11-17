@@ -19,7 +19,9 @@ router.post('/login', (req, res) => {
                 console.log('Poprawne dane logowania');
                 req.session.userId = data[0].idusers;
                 req.session.userName = data[0].mail;
-                res.redirect('/');
+                let returnTo = req.session.returnTo || '/default';
+                delete req.session.returnTo;
+                res.redirect(returnTo);
             }
         })
         .catch(err => console.error(err));

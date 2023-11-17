@@ -37,9 +37,9 @@ router.get('/register', (req, res) => {
 
 
 router.get('/addbook', requireLogin, (req, res) => {
-    bookDb.getBooksByUserIdLimit(req.session.userId, 2)
+    bookDb.getBooksByUserIdLimit(req.session.userId, 7)
         .then(lastBooks => {
-            console.log(lastBooks);
+            // console.log(lastBooks);
             res.render('addbook', {
                 title: 'Dodaj książkę',
                 userName: req.session.userName,

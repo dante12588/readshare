@@ -1,11 +1,36 @@
 <div class="form">
     <form action="/books" method="post" enctype="multipart/form-data">
         <h2>Dodaj nową książkę</h2>
-        <input type="text" name="title" placeholder="tytuł">
-        <input type="text" name="author" placeholder="autor">
-        <input type="text" name="year" placeholder="rok">
-        <input type="text" name="description" placeholder="opis">
+        <input type="text" name="title" placeholder="tytuł" value="{{formData.title}}">
+        {{#each errors}}
+            {{#if (eq this.path 'title')}}
+                <p class="error">{{this.msg}}</p>
+            {{/if}}
+        {{/each}}
+        <input type="text" name="author" placeholder="autor" value="{{formData.author}}">
+        {{#each errors}}
+            {{#if (eq this.path 'author')}}
+                <p class="error">{{this.msg}}</p>
+            {{/if}}
+        {{/each}}
+        <input type="text" name="year" placeholder="rok" value="{{formData.year}}">
+        {{#each errors}}
+            {{#if (eq this.path 'year')}}
+                <p class="error">{{this.msg}}</p>
+            {{/if}}
+        {{/each}}
+        <input type="text" name="description" placeholder="opis" value="{{formData.description}}">
+        {{#each errors}}
+            {{#if (eq this.path 'description')}}
+                <p class="error">{{this.msg}}</p>
+            {{/if}}
+        {{/each}}
         <input type="file" name="bookCover" accept="image/*">
+        {{#each errors}}
+            {{#if (eq this.path 'bookCover')}}
+                <p class="error">{{this.msg}}</p>
+            {{/if}}
+        {{/each}}
         <input type="submit" value="Dodaj książkę">
         <p class="message">{{message}}</p>
     </form>
