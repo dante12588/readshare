@@ -31,10 +31,15 @@ const getUsers = () => {
 };
 
 const editUser = (id, mail, passwd) => {
-    sql = `UPDATE users SET mail='${mail}', passwd='${passwd}' WHERE idusers=${id}`;
-    db.query(sql, (err, result) => {
-        if (err) throw err;
-        console.log(result);
+    return new Promise((resolve, reject) => {
+        sql = `UPDATE users SET mail='${mail}', passwd='${passwd}' WHERE idusers=${id}`;
+        db.query(sql, (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
     });
 };
 
@@ -50,6 +55,19 @@ const deleteUser = (id) => {
         })
     });
 }
+
+const getUserById = (id) => {
+    return new Promise((resolve, reject) => {
+        let sql = `SELECT * FROM users WHERE idusers=${id}`;
+        db.query(sql, (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+};
 
 const getUserByMail = (mail) => {
     return new Promise((resolve, reject) => {
@@ -69,5 +87,6 @@ module.exports = {
     editUser,
     getUserByMail,
     deleteUser,
-    getUsers
+    getUsers,
+    getUserById
 }

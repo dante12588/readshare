@@ -48,6 +48,25 @@ router.get('/addbook', requireLogin, (req, res) => {
         });
 });
 
+router.get('/profile', requireLogin, (req, res) => {
+    const userId = req.session.userId;
+    userDb.getUserById(userId)
+        .then(user => {
+            bookDb.getBooksByUserId(userId)
+                .then(books => {
+                    res.render('user', {
+                        title: 'Profil',
+                        userName: req.session.userName,
+                        books: books,
+                        user: user,
+                        error: req.session.error,
+                        message: req.session.message
+                    });
+                });
+        })
+        .catch(err => console.error(err));
+});
+
 router.get('/books', (req, res) => {
     res.render('books', {
         title: 'Książki',

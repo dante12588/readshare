@@ -1,0 +1,32 @@
+<h3>Mój profil</h3>
+
+    <div class="form">
+        {{#each user}}
+        <form>
+            <p>nazwa użytkownika</p>
+            <input type="text" name="mail" value="{{this.mail}}">
+            <p>hasło</p>
+            <input type="text" name="passwd" value="{{this.passwd}}">
+            <input type="submit" value="Zapisz zmiany">
+        </form>
+        {{/each}}
+        <p class="message">{{message}}</p>
+    </div>
+
+<script>
+    const btn = document.querySelector('input[type="submit"]');
+    btn.addEventListener('click', (e)=>{
+        e.preventDefault();
+        $.ajax({
+            url: '/users/edit',
+            method: 'PUT',
+            data: {
+                mail: document.querySelector('input[name="mail"]').value,
+                passwd: document.querySelector('input[name="passwd"]').value
+            },
+            success: (res)=>{
+                console.log(res);
+            }
+        })
+    })
+</script>

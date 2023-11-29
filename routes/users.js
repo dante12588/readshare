@@ -19,7 +19,7 @@ router.post('/login', (req, res) => {
                 console.log('Poprawne dane logowania');
                 req.session.userId = data[0].idusers;
                 req.session.userName = data[0].mail;
-                let returnTo = req.session.returnTo || '/default';
+                let returnTo = req.session.returnTo || '/';
                 delete req.session.returnTo;
                 res.redirect(returnTo);
             }
@@ -56,12 +56,18 @@ router.post('', (req, res) => {
 });
   
 // Edycja istniejącego użytkownika
-router.put('/:id', (req, res) => {
-    // Pobranie wartości id z adresu URL
-    const id = req.params.id;
-    // Kod do obsługi edycji istniejącego użytkownika
-    userDb.editUser(id, 'mail', 'passEdit');
-    res.sendStatus(200);
+router.put('/edit', (req, res) => {
+    const id = req.session.userId;
+    userDb.editUser(id, req.body.mail, req.body.passwd)
+        .then(() => {
+            req.session.userName = req.body.mail;
+            req.session.message = 'Zmieniono dane użytkownika';
+            res.redirect('/profile');
+        })
+        .catch( () => {
+            req.session.message = 'Nie udało się zmienić danych użytkownika';
+            res.redirect('/profile');
+        });
 });
   
 // Usuwanie istniejącego użytkownika
