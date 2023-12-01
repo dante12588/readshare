@@ -22,6 +22,7 @@ button.addEventListener('click', (e)=>{
             },
         success: (res)=>{
             displayBooks();
+            console.log(res);
         }
    });
 })

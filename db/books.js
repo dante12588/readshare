@@ -93,13 +93,29 @@ const getAllBooks = () => {
 };
 
 //edycja książki
-const editBook = (id, title, author, year, description) => {
-    sql = `UPDATE books SET title='${title}', author='${author}', year='${year}', description='${description}' WHERE idbooks=${id}`;
-    db.query(sql, (err) => {
-        if (err) {
-            return console.error(err.message);
-        }
-        console.log(`Row(s) updated`);
+const editBook = (id, title, author, year, description, img) => {
+    return new Promise((resolve, reject) => {
+        sql = `UPDATE books SET title='${title}', author='${author}', year='${year}', description='${description}', img='${img}' WHERE idbooks=${id}`;
+        db.query(sql, (err) => {
+            if (err) {
+                reject(err);
+            }
+            console.log(`Row(s) updated`);
+            resolve();
+        });
+    });
+};
+
+//pobieranie książki po id
+const getBookById = (id) => {
+    return new Promise((resolve, reject) => {
+        sql = `SELECT * FROM books WHERE idbooks=${id}`;
+        db.query(sql, (err, rows) => {
+            if (err) {
+                reject(err);
+            }
+            resolve(JSON.stringify(rows[0]));    
+        });
     });
 };
 
@@ -111,5 +127,6 @@ module.exports = {
     editBook,
     getBestBooks,
     getLastBooks,
-    getBooksByUserIdLimit
+    getBooksByUserIdLimit,
+    getBookById
 }

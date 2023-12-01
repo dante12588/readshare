@@ -1,1 +1,19 @@
-edytuj ksiazke
+{{!-- dostajemy dane o książce w wkłądamy je do formularza
+dodajemy do formularza atrybut action i metode post
+wysyłamy ajaxem dane do serwera
+serwer zapisuje dane do bazy
+serwer zwraca odpowiedź --}}
+
+<div class="form">
+    <img src="/uploads/{{book.img}}" alt="">
+    <form action="/books/edit/{{book.id}}" method="post" enctype="multipart/form-data">
+        <input type="text" name="title" placeholder="{{book.title}}">
+        <input type="text" name="author" placeholder="{{book.author}}">
+        <input type="text" name="year" placeholder="{{book.year}}">
+        <input type="text" name="descrition" placeholder="{{book.description}}">
+        <input type="file" name="bookCover" accept="image/*">
+        <input type="submit" value="Zapisz">
+    </form>
+</div>
+
+<script src="/js/editbook.js"></script>

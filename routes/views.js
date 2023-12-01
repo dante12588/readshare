@@ -74,11 +74,29 @@ router.get('/books', (req, res) => {
     });
 });
 
-router.get('/books/edit', (req, res) => {
-    res.render('editbook', {
-        title: 'Edycja książki',
-        userName: req.session.userName,
-    });
+router.get('/books/edit/:id', (req, res) => {
+    const bookId = req.params.id;
+    bookDb.getBookById(bookId)
+        .then(book => {
+            const data = JSON.parse(book);
+            res.render('editbook', {
+                title: 'Edycja książki',
+                userName: req.session.userName,
+                book: {
+                    id: bookId,
+                    title: data.title,
+                    year: data.year,
+                    description: data.description,
+                    author: data.author,
+                    img: data.img,
+                }
+            });
+        })
+        .catch(err => {
+            console.error(err);
+            res.redirect('/profile');
+        });
+    
 });
 
 router.get('/trade', requireLogin, (req, res) => {

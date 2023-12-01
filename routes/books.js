@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const bookDB = require('../db/books');
 const multer = require('multer');
-const { check, validationResult } = require('express-validator');
+const { check, validationResult, body } = require('express-validator');
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
@@ -109,10 +109,23 @@ router.post('/search', (req, res) => {
     }).catch(err => console.error(err));
 })
 
+//pobieranie książki o danym adresie id
+
+router.post('/id', (req, res) => {
+    const id = req.body.id;
+    console.log(`Pobieram książkę o id ${id}`);
+    bookDB.getBookById(id)
+    .then(data => {
+        res.json(data);
+    }).catch(err => console.error(err));
+})
+
 //edycja ksiazek
-router.put('/edit', (req, res) => {
-    bookDB.editBook(req.body.id, req.body.title, req.body.author, req.body.year, req.body.description);
-    res.sendStatus(200);
+router.post('/edit/:id', upload.single('file'), (req, res) => {
+    bookDB.editBook(req.params.id, req.body.title, req.body.author, req.body.year, req.body.description, req.file.originalname)
+        .then( () => {
+            res.json({ message: 'Książka została zaktualizowana' });
+        }).catch(err => console.error(err));
 });
 //usuwanie ksiazek
 
