@@ -2,6 +2,8 @@ const btn = document.querySelectorAll('#exchange-book');
 var modal = document.getElementById("tradeModal");
 var span = document.getElementsByClassName("close")[0];
 const selectBooks = document.querySelector("#bookSelect");
+const proposeTrade = document.querySelector("#proposeTrade");
+let bookId = 0;
 
 $.ajax({
     url: '/books//byid',
@@ -17,12 +19,26 @@ $.ajax({
     },
 });
 
+proposeTrade.addEventListener('click', () =>{
+    $.ajax({
+        url: '/trade',
+        type: 'POST',
+        data: {
+            book1Id: selectBooks.value,
+            book2Id: bookId
+        },
+        success: function (data) {
+            modal.style.display = "none";
+        },
+    });
+});
+
 
 btn.forEach((el) => {
     el.addEventListener('click', (e) => {
         e.preventDefault();
         modal.style.display = "block";
-        // alert(el.dataset.bookid);
+        bookId = el.dataset.bookid;
         
     });
 });

@@ -16,6 +16,30 @@ const newTrade = (book1, book2, user1, user2) => {
     });
 };
 
+const offeredTransactions = (user_id) => {
+    return new Promise((resolve, reject) => {
+        sql = `SELECT * FROM trades WHERE user1_id = '${user_id}' AND status = "pending"`;
+        db.query(sql, (err, rows) => {
+            if (err) {
+                reject(err);
+            }
+            resolve(rows);
+        });
+    });
+};
+
+const receivedTransactions = (user_id) => {
+    return new Promise((resolve, reject) => {
+        sql = `SELECT * FROM trades WHERE user2_id = '${user_id}' AND status = "pending"`;
+        db.query(sql, (err, rows) => {
+            if (err) {
+                reject(err);
+            }
+            resolve(rows);
+        });
+    });
+};
+
 const updateStatusTrade = (trade_id, status) => {
     return new Promise((resolve, reject) => {
         sql = `UPDATE trades SET status = '${status}' WHERE trade_id = '${trade_id}'`;

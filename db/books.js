@@ -14,9 +14,9 @@ const addBook = (title, author, year, description, userid, img) => {
 };
 
 //pobieranie najlepszych książek w ilości podanej w argumencie
-const getBestBooks = (numbresBooks) => {
+const getBestBooks = (numbresBooks, userId = 0) => {
     return new Promise((resolve, reject) => {
-        sql = `SELECT * FROM books ORDER BY rate DESC LIMIT ${numbresBooks}`;
+        sql = `SELECT * FROM books WHERE availability="A" AND userid != ${userId} ORDER BY rate DESC LIMIT ${numbresBooks}`;
         db.query(sql, (err, rows) => {
             if (err) {
                 reject(err);

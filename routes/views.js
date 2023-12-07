@@ -4,7 +4,7 @@ const userDb = require('../db/users');
 const bookDb = require('../db/books');
 
 router.get('/', (req, res) => {
-    bookDb.getBestBooks(5)
+    bookDb.getBestBooks(5, req.session.userId)
         .then(bestBooks => {
             return bookDb.getLastBooks(2)
                 .then(lastBooks => {
