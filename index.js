@@ -5,6 +5,7 @@ const routes = require('./routes/index');
 const session = require('express-session');
 const methodOverride = require('method-override');
 const handlebars = require('handlebars');
+const fs = require('fs');
 
 const app = express();
 const port = 4000;
@@ -26,6 +27,10 @@ app.use(session({
 handlebars.registerHelper('eq', function(a, b) {
   return a === b;
 });
+
+handlebars.registerPartial('modal', fs.readFileSync(__dirname + '/views/partials/modal.handlebars', 'utf8'));
+handlebars.registerPartial('bestBooks', fs.readFileSync(__dirname + '/views/partials/bestbooks.handlebars', 'utf8'));
+
 
 app.engine('handlebars', hbs.engine({
     defaultLayout: "main"

@@ -1,26 +1,12 @@
-<h1>Strona główna</h1>
-{{#if userName}}
-  <h2>Witaj {{userName}}</h2>
-{{else}}
-  <h2>Witaj nieznajomy</h2>
-{{/if}}
+{{>modal}}
 
-<h2>Najbardziej polularne propozycje</h2>
+{{>bestBooks}}
 
-<div class="bestBooks books">
-    {{#each bestBooks}}
-        <div class="book">
-            <img src="uploads/{{this.img}}" alt="{{this.title}}">
-            <p>{{this.title}}</p>
-            <p>{{this.author}}</p>
-            <p>{{this.description}}</p>
-        </div>
-    {{/each}}
-</div>
+{{!-- <button class="btn">Jakiś tam przycisk</button> --}}
 
-<h2>Ostatnio dodane</h2>
+{{!-- <h2>Ostatnio dodane</h2> --}}
 
-<div class="lastBooks books">
+{{!-- <div class="lastBooks books">
     {{#each lastBooks}}
         <div class="book">
             <img src="uploads/{{this.img}}" alt="{{this.title}}">
@@ -29,5 +15,7 @@
             <p>{{this.description}}</p>
         </div>
     {{/each}}
-</div>
+</div> --}}
+
+
 <script src="js/home.js"></script>

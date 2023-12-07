@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ReadShare</title>
+    <link rel="stylesheet" href="/style/style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<nav>
+
+    <a href="/">Strona główna</a>
+    {{#if userName}}
+        <a href="/users/logout">Wyloguj</a>
+    {{else}}
+        <a href="/login">Zaloguj się</a>
+    {{/if}}
+    <a href="/profile">Konto użytkownika</a>
+    <a href="/addbook">Dodaj nową książkę</a>
+    {{!-- <a href="/books">ksiazki</a> --}}
+    {{!-- <a href="/trade">wymiana</a>
+    <a href="/allusers">Użytkownicy</a> --}}
+</nav>
+<body>
+    {{{body}}}
+</body>
+</html>

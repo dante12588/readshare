@@ -93,6 +93,11 @@ router.get('/all', (req, res) => {
 
 //Pobieranie książek danego użytkownika
 router.get('/byid', (req, res) => {
+    if(req.session.userId == undefined){
+        console.log('Nie jesteś zalogowany dlatego nie można pobrać książek z bazy danych');
+        res.json({ message: 'Nie jesteś zalogowany dlatego nie można pobrać książek z bazy danych' });
+        return;
+    }
     bookDB.getBooksByUserId(req.session.userId)
         .then(data => {
             res.json(data);

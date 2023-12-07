@@ -4,7 +4,7 @@ const userDb = require('../db/users');
 const bookDb = require('../db/books');
 
 router.get('/', (req, res) => {
-    bookDb.getBestBooks(2)
+    bookDb.getBestBooks(5)
         .then(bestBooks => {
             return bookDb.getLastBooks(2)
                 .then(lastBooks => {
