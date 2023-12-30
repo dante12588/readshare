@@ -25,15 +25,15 @@ router.post('/', (req, res) => {
 
 });
 
-router.post('/update', (req, res) => {
-    tradeDB.updateStatusTrade(3, 'accepted')
-    .then(() => {
-        res.send('trade updated');
-    })
-    .catch((err) => {
-        console.log(err);
-        res.send('error updating trade');
-    });
+router.put('/:id', (req, res) => {
+    tradeDB.updateStatusTrade(req.params.id, req.body.status)
+        .then(() => {
+            res.send('trade updated');
+        })
+        .catch((err) => {
+            console.log(err);
+            res.send('error updating trade');
+        });
 });
 
 

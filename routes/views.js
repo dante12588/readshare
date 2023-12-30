@@ -2,6 +2,7 @@ const router = require('express').Router();
 const requireLogin = require('../middleware/requireLogin');
 const userDb = require('../db/users');
 const bookDb = require('../db/books');
+const tradeDb = require('../db/trade');
 
 router.get('/', (req, res) => {
     bookDb.getBestBooks(5, req.session.userId)
@@ -100,10 +101,20 @@ router.get('/books/edit/:id', (req, res) => {
 });
 
 router.get('/trade', requireLogin, (req, res) => {
-    res.render('trade', {
-        title: 'Wymiana',
-        userName: req.session.userName,
-    });
+
+    tradeDb.offeredTransactions(req.session.userId)
+        .then(offeredTransactions => {
+            tradeDb.receivedTransactions(req.session.userId)
+                .then(receivedTransactions => {
+                    res.render('trade', {
+                        title: 'Wymiana',
+                        userName: req.session.userName,
+                        offeredTransactions: offeredTransactions,
+                        receivedTransactions: receivedTransactions
+                    });
+                });
+        })
+        .catch(err => console.error(err));
 });
 
 router.get('/allusers',(req, res) =>{

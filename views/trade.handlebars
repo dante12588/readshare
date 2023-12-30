@@ -1,1 +1,27 @@
-<h1>Strona z wymiana</h1>
+<h2 class="center">Otrzymane transakcje</h2>
+{{#each receivedTransactions}}
+    <div class="transaction">
+        <div class="offert">
+            <p>Tytuł : {{this.book1_title}}</p>
+            <p>Autor : {{this.book1_author}}</p>
+        </div>
+        <div class="get">
+            <p>Tytuł : {{this.book2_title}}</p>
+            <p>Autor : {{this.book2_author}}</p>
+        </div>
+    </div>
+{{/each}}
+
+<h2 class="center">Moje oferty</h2>
+{{#each offeredTransactions}}
+    <div class="transaction">
+        <div class="offert">
+            <p>Tytuł : {{this.book1_title}}</p>
+            <p>Autor : {{this.book1_author}}</p>
+        </div>
+        <div class="get">
+            <p>Tytuł : {{this.book2_title}}</p>
+            <p>Autor : {{this.book2_author}}</p>
+        </div>
+    </div>   
+{{/each}}

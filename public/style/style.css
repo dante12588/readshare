@@ -109,7 +109,26 @@ body {
 
 
 
+.transaction{
+    border: 1px solid #000;
+    display: flex;
+    justify-content: space-between;
+    max-width: 600px;
+    margin: auto;
+}
 
+.center{
+    text-align: center;
+
+}
+
+.offert{
+
+}
+
+.get{
+
+}
 
 
 
