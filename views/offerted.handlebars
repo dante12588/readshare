@@ -1,0 +1,36 @@
+<h1>Oferty</h1>
+
+<h2>Trwające oferty</h2>
+{{#each pendingTrades}}
+<p>{{this.book1_id}} - {{this.book2_id}} | <a class="changeStatus" id="accept" data-status="accepted" data-id="{{this.trade_id}}" href="#">Akceptuj</a> | <a class="changeStatus" id="reject" data-status="rejected" data-id="{{this.trade_id}}" href="#">Odrzuć</a></p>
+{{/each}}
+
+<h2>Zaakceptowane oferty</h2>
+{{#each acceptedTrades}}
+<p>{{this.book1_id}} - {{this.book2_id}} | <a href="">Kontakt</a></p>
+{{/each}}
+
+<h2>Odrzucone oferty</h2>
+{{#each rejectedTrades}}
+<p>{{this.book1_id}} - {{this.book2_id}}</p>
+{{/each}}
+
+<script>
+    $(document).ready(function() {
+        $('.changeStatus').click(function(e) {
+            e.preventDefault();
+            let id = $(this).data('id');
+            let status = $(this).data('status');
+            $.ajax({
+                url: `trade/${id}`,
+                type: 'PUT',
+                data: {
+                    status: status
+                },
+                success: () => {
+                    location.reload();
+                }
+            });
+        });
+    });
+</script>

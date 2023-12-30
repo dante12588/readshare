@@ -3,7 +3,6 @@ const db = require('./index');
 let sql;
 
 //create new trade
-
 const newTrade = (book1, book2, user1, user2) => {
     return new Promise((resolve, reject) => {
         sql = `INSERT INTO trades (book1_id, book2_id, user1_id, user2_id) VALUES ('${book1}', '${book2}', '${user1}', '${user2}')`;
@@ -16,6 +15,7 @@ const newTrade = (book1, book2, user1, user2) => {
     });
 };
 
+// get all transactions where user is sender
 const offeredTransactions = (user_id) => {
     return new Promise((resolve, reject) => {
         sql = `SELECT trades.trade_id, trades.created_at, trades.updated_at,
@@ -35,6 +35,7 @@ const offeredTransactions = (user_id) => {
     });
 };
 
+// get all transactions where user is receiver
 const receivedTransactions = (user_id) => {
     return new Promise((resolve, reject) => {
         sql = `SELECT trades.trade_id, trades.created_at, trades.updated_at,
@@ -54,7 +55,7 @@ const receivedTransactions = (user_id) => {
     });
 };
 
-
+// change trade status to accepted or rejected
 const updateStatusTrade = (trade_id, status) => {
     return new Promise((resolve, reject) => {
         sql = `UPDATE trades SET status = '${status}' WHERE trade_id = '${trade_id}'`;
@@ -67,9 +68,22 @@ const updateStatusTrade = (trade_id, status) => {
     });
 };
 
+const getTradeByUserIdWithStatus = (user_id, status) => {
+    return new Promise((resolve, reject) => {
+        sql = `SELECT * FROM trades WHERE user1_id = '${user_id}' AND status = '${status}'`;
+        db.query(sql, (err, rows) => {
+            if (err) {
+                reject(err);
+            }
+            resolve(rows);
+        });
+    });
+};
+
 module.exports = {
     newTrade,
     updateStatusTrade,
     offeredTransactions,
     receivedTransactions,
+    getTradeByUserIdWithStatus
 };

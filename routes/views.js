@@ -129,4 +129,24 @@ router.get('/allusers',(req, res) =>{
         .catch(err => console.error(err));
 });
 
+router.get('/offerted', (req, res) => {
+    tradeDb.getTradeByUserIdWithStatus(req.session.userId, 'pending')
+        .then( pendingTrades => {
+            tradeDb.getTradeByUserIdWithStatus(req.session.userId, 'accepted')
+                .then(acceptedTrades => {
+                    tradeDb.getTradeByUserIdWithStatus(req.session.userId, 'rejected')
+                        .then(rejectedTrades => {
+                            res.render('offerted', {
+                                title: 'Wymiana',
+                                userName: req.session.userName,
+                                pendingTrades: pendingTrades,
+                                acceptedTrades: acceptedTrades,
+                                rejectedTrades: rejectedTrades
+                            });
+                        });
+                });
+        })
+        .catch(err => console.error(err));
+});
+
 module.exports = router;
