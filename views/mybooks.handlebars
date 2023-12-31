@@ -1,0 +1,11 @@
+<h1>Moje książki</h1>
+
+
+{{#each books}}
+   Tytuł {{this.title}}
+   Autor {{this.author}}
+   Opis {{this.description}}
+   Zdjecie <img src="/uploads/{{this.img}}" style="max-width: 100px;">
+    <a href="#">Edytuj</a><a href="#">Usuń książkę</a>
+   <br>
+{{/each}}

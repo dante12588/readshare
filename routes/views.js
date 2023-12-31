@@ -149,4 +149,16 @@ router.get('/offerted', (req, res) => {
         .catch(err => console.error(err));
 });
 
+router.get('/mybooks', (req, res) => {
+    bookDb.getBooksByUserId(req.session.userId)
+        .then(books => {
+            res.render('mybooks', {
+                title: 'Moje książki',
+                userName: req.session.userName,
+                books: books
+            });
+        })
+        .catch(err => console.error(err));
+});
+
 module.exports = router;
