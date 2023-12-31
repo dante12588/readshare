@@ -15,12 +15,12 @@
 
 <h2>Trwające oferty</h2>
 {{#each pendingTrades}}
-<p>{{this.book1_id}} - {{this.book2_id}} | <a class="changeStatus" id="accept" data-status="accepted" data-id="{{this.trade_id}}" href="#">Akceptuj</a> | <a class="changeStatus" id="reject" data-status="rejected" data-id="{{this.trade_id}}" href="#">Odrzuć</a></p>
+<p>{{this.book1_id}} - {{this.book2_id}} | <a class="changeStatus" data-status="accepted" data-id="{{this.trade_id}}" href="#">Akceptuj</a> | <a class="changeStatus" data-status="rejected" data-id="{{this.trade_id}}" href="#">Odrzuć</a></p>
 {{/each}}
 
 <h2>Zaakceptowane oferty</h2>
 {{#each acceptedTrades}}
-<p>{{this.book1_id}} - {{this.book2_id}} | <a id="messages" href="">Kontakt</a></p>
+<p>{{this.book1_id}} - {{this.book2_id}} | <a class="contact" data-tradeId="{{this.trade_id}}" data-userid="{{this.user2_id}}" href="">Kontakt</a></p>
 {{/each}}
 
 <h2>Odrzucone oferty</h2>
@@ -30,19 +30,23 @@
 
 <script>
 
-    const btn = document.querySelectorAll('#messages');
+    const btn = document.querySelectorAll('.contact');
     var modal = document.getElementById("tradeModal");
     var span = document.getElementsByClassName("close")[0];
+    let tradeId;
+    let userId;
     
     $('#sendMessage').click(() => {
         let message = $('input[name=message]').val();
-        let receiver = 99;
+        let receiver = userId;
+        
         $.ajax({
             url: `messages`,
             type: 'POST',
             data: {
                 message: message,
-                receiver: receiver
+                receiver: receiver,
+                tradeId: tradeId
             },
             success: () => {
                 $('#messages').append(`<p>${message}</p>`);
@@ -57,12 +61,14 @@
         el.addEventListener('click', (e) => {
             e.preventDefault();
             $('#messages').empty();
-
+            tradeId = $(el).data('tradeid');
+            userId = $(el).data('userid');
             $.ajax({
                 url: 'messages',
                 type: 'GET',
                 data: {
-                    receiver: 99
+                    receiver: userId,
+                    tradeId: tradeId
                 },
                 success: (data) => {
                     data.forEach((el) => {
