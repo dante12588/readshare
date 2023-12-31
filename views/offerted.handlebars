@@ -1,5 +1,18 @@
 <h1>Oferty</h1>
 
+<!-- Modal -->
+<div id="tradeModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Wiadomości</h2>
+    <div id="messages" class="messages">
+    </div>
+    <input type="text" name="message">
+    <button id="sendMessage">Wyślij</button>
+  </div>
+</div>
+
+
 <h2>Trwające oferty</h2>
 {{#each pendingTrades}}
 <p>{{this.book1_id}} - {{this.book2_id}} | <a class="changeStatus" id="accept" data-status="accepted" data-id="{{this.trade_id}}" href="#">Akceptuj</a> | <a class="changeStatus" id="reject" data-status="rejected" data-id="{{this.trade_id}}" href="#">Odrzuć</a></p>
@@ -7,7 +20,7 @@
 
 <h2>Zaakceptowane oferty</h2>
 {{#each acceptedTrades}}
-<p>{{this.book1_id}} - {{this.book2_id}} | <a href="">Kontakt</a></p>
+<p>{{this.book1_id}} - {{this.book2_id}} | <a id="messages" href="">Kontakt</a></p>
 {{/each}}
 
 <h2>Odrzucone oferty</h2>
@@ -16,6 +29,58 @@
 {{/each}}
 
 <script>
+
+    const btn = document.querySelectorAll('#messages');
+    var modal = document.getElementById("tradeModal");
+    var span = document.getElementsByClassName("close")[0];
+    
+    $('#sendMessage').click(() => {
+        let message = $('input[name=message]').val();
+        let receiver = 99;
+        $.ajax({
+            url: `messages`,
+            type: 'POST',
+            data: {
+                message: message,
+                receiver: receiver
+            },
+            success: () => {
+                $('#messages').append(`<p>${message}</p>`);
+                $('input[name=message]').val('');
+            }
+        });
+    });
+
+    
+
+    btn.forEach((el) => {
+        el.addEventListener('click', (e) => {
+            e.preventDefault();
+            $('#messages').empty();
+
+            $.ajax({
+                url: 'messages',
+                type: 'GET',
+                data: {
+                    receiver: 99
+                },
+                success: (data) => {
+                    data.forEach((el) => {
+                        $('#messages').append(`<p>${el.message}</p>`);
+                    });
+                }
+            });
+            modal.style.display = "block";
+            bookId = el.dataset.bookid;
+            
+        });
+    });
+
+    span.addEventListener('click', () => {
+        modal.style.display = "none";
+    });
+
+
     $(document).ready(function() {
         $('.changeStatus').click(function(e) {
             e.preventDefault();
