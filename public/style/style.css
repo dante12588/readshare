@@ -192,3 +192,24 @@ input[type="submit"]{
       .lastBooks.books img{
         max-width: 150px;
       }
+
+      .ratingbooks{
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .ratingbooks .book{
+        border: 1px solid red;
+      }
+
+      .ratingbooks .rating{
+        background-color: aqua;
+      }
+
+      .ratingbooks .rate{
+        display: inline-block;
+        cursor: pointer;
+        width: 10px;
+        height: 10px;
+        background-color: green;
+      }

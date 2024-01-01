@@ -1,0 +1,54 @@
+oceny
+
+<a id="aaa" href="#">Wyślij ocene</a>
+<a id="bbb" href="#">Pobierz</a>
+<a id="ccc" href="#">Pob</a>
+
+<div class="ratingbooks">
+{{#each books}}
+    <div class="book">
+        <p>Tytuł - {{this.title}}</p>
+        <p>Autor - {{this.author}}</p>
+        <p>Ocena - {{this.rate}}</p>
+        <p class="rating">
+            <span data-rate="1" class="rate"></span>
+            <span data-rate="2" class="rate"></span>
+            <span data-rate="3" class="rate"></span>
+            <span data-rate="4" class="rate"></span>
+            <span data-rate="5" class="rate"></span>
+        </p>
+    </div>
+{{/each}}
+</div>
+
+<script>
+    $('.rating').hover(function() {
+        
+    });
+</script>
+
+<script>
+    $('#aaa').click(function(e){
+        e.preventDefault();
+        $.ajax({
+            url: '/rate',
+            method: 'POST',
+            data:{
+                bookId: 71,
+                rate: 5
+            },
+            success: function(response){
+                console.log(response);
+            }
+        });
+    });
+
+
+    $('#ccc').click(function(e){
+        e.preventDefault();
+        $.ajax({
+            url: '/rate',
+            method: 'GET'
+        });
+    });
+</script>

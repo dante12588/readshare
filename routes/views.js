@@ -3,6 +3,7 @@ const requireLogin = require('../middleware/requireLogin');
 const userDb = require('../db/users');
 const bookDb = require('../db/books');
 const tradeDb = require('../db/trade');
+const rateDb = require('../db/rate');
 
 router.get('/', (req, res) => {
     bookDb.getBestBooks(5, req.session.userId)
@@ -156,6 +157,19 @@ router.get('/mybooks', (req, res) => {
                 title: 'Moje książki',
                 userName: req.session.userName,
                 books: books
+            });
+        })
+        .catch(err => console.error(err));
+});
+
+router.get('/ratings', (req, res) => {
+    rateDb.getBooksWithRate()
+        .then(books => {
+            const userid = req.session.userId;
+            let filteredBooks = books.filter(book => book.userid !== userid);
+            res.render('ratings', {
+                title: 'Oceny',
+                books: filteredBooks
             });
         })
         .catch(err => console.error(err));
