@@ -14,6 +14,9 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Wyłączanie cache
+app.set('view cache', false);
+
 app.use(methodOverride('_method'));
 
 app.use(express.static('public'));

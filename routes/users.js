@@ -83,4 +83,13 @@ router.delete('/:id', (req, res) => {
         res.redirect('/');
 });
 
+//czy jestem zalogoany
+router.get('/islogged', (req, res) => {
+    if (req.session.userId) {
+        res.send(true);
+    } else {
+        res.send(false);
+    }
+});
+
 module.exports = router;

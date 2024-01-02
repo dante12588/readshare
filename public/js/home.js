@@ -5,6 +5,29 @@ const selectBooks = document.querySelector("#bookSelect");
 const proposeTrade = document.querySelector("#proposeTrade");
 let bookId = 0;
 
+async function islogged() {
+    try {
+        const response = await $.ajax({
+            url: '/users/isLogged',
+            type: 'GET'
+        });
+        return response;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
+islogged().then((data) => {
+    if (data == true) {
+        console.log('Zalogowany');
+    } else {
+        console.log('Nie zalogowany');
+        $('.actions .exchange-book').hide();
+    }
+});
+
+
 $.ajax({
     url: '/books//byid',
     type: 'GET',
