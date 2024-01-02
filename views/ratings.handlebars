@@ -14,7 +14,7 @@ oceny
             <div class="rate" style="--my-variable: 70%;"></div>
         </div>
         <div id="myRate" class="rating">
-            <div class="rate" data-userrate="30%" style="--my-variable: 0%;"></div>
+            <div class="rate" data-bookid="{{this.idbooks}}" data-userrate="30%" style="--my-variable: 0%;"></div>
         </div>
     </div>
 {{/each}}
@@ -23,8 +23,63 @@ oceny
 
 <script>
 
+    function sendRate(rate, bookId){
+        $.ajax({
+            url: '/rate',
+            method: 'POST',
+            data:{
+                bookId: bookId,
+                rate: rate
+            },
+            success: function(response){
+                console.log(response);
+            }
+        });
+    }
+
+   function getRate(bookId) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+            url: '/rate/user',
+            method: 'GET',
+            data: {
+                bookId: bookId
+            },
+            success: function(response) {
+                const rate = response[0].rate;
+                resolve(rate);
+            },
+            error: function(error) {
+                reject(error);
+            }
+            });
+        });
+    }
+
+    $('#myRate .rate').each(function() {
+        let bookId = $(this).data('bookid');
+        getRate(bookId).then((rate) => {
+            $(this).css('--my-variable', rate + '%');
+        }).catch((error) => {
+            console.log(error);
+        });
+    });
+
+    getRate(71).then((rate) => {
+        console.log(rate);
+    }).catch((error) => {
+        console.log(error);
+    });
+
     let userRate= $('#myRate .rate').data('userrate');
     $('#myRate .rate').css('--my-variable', userRate);
+
+    $('#myRate .rate').on('click', function() {
+        $(this).data('userrate', $(this).css('--my-variable'));
+        let rateInt = parseInt($(this).css('--my-variable'));
+        let bookId = $(this).data('bookid');
+        sendRate(rateInt, bookId);
+    });
 
    $('#myRate .rate').on('mousemove', function(e) {
         var elementWidth = $(this).width();
@@ -34,7 +89,6 @@ oceny
 
         $(this).on('click', function() {
             $(this).data('userrate', percentage + '%');
-            //tu wypadałoby wysłać ocene do bazy danych
         });
 
         $(this).on('mouseleave', function() {
