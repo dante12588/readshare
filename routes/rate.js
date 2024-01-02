@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const rateDb = require('../db/rate');
 
+// /rate
+
 router.post('', (req, res) => {
     if(!req.session.userId){
         console.log('User not logged in');
@@ -49,8 +51,24 @@ router.post('', (req, res) => {
 
 });
 
-router.get('/', (req, res) => {
-    rateDb.getBooksWithRate()
+// router.get('/', (req, res) => {
+//     rateDb.getBooksWithRate()
+//         .then((rows) => {
+//             res.json(rows);
+//         })
+//         .catch(err => {
+//             console.error(err);
+//             res.sendStatus(500);
+//         });
+// });
+
+router.get('/user', (req, res) => {
+    if(!req.session.userId){
+        console.log('User not logged in');
+        res.sendStatus(401);
+        return;
+    }
+    rateDb.userRate(req.session.userId, req.query.bookId)
         .then((rows) => {
             res.json(rows);
         })
@@ -60,13 +78,8 @@ router.get('/', (req, res) => {
         });
 });
 
-router.get('/user', (req, res) => {
-    if(!req.session.userId){
-        console.log('User not logged in');
-        res.sendStatus(401);
-        return;
-    }
-    rateDb.userRate(req.session.userId, req.query.bookId)
+router.get('/book', (req, res) => {
+    rateDb.getBookRate(req.query.bookId)
         .then((rows) => {
             res.json(rows);
         })

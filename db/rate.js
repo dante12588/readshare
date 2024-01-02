@@ -56,7 +56,6 @@ const updateRate = (user_id, book_id, rate) => {
             if (err) {
                 reject(err);
             }
-            console.log(rows);
             resolve(rows);
         });
     });
@@ -74,10 +73,25 @@ const getBooksWithRate = () => {
     });
 };
 
+//get single book rate by book id
+
+const getBookRate = (bookId) => {
+    return new Promise((resolve, reject) => {
+        sql = `SELECT AVG(ratings.rate) AS rate FROM ratings WHERE book_id = '${bookId}'`;
+        db.query(sql, (err, rows) => {
+            if (err) {
+                reject(err);
+            }
+            resolve(rows);
+        });
+    });
+};
+
 module.exports = {
     addRate,
     getBookWithRate,
     getBooksWithRate,
     userRate,
-    updateRate
+    updateRate,
+    getBookRate
 };

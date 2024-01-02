@@ -10,10 +10,12 @@ oceny
         <p>Tytuł - {{this.title}}</p>
         <p>Autor - {{this.author}}</p>
         <p>Ocena - {{this.rate}}</p>
-        <div class="rating">
-            <div class="rate" style="--my-variable: 70%;"></div>
+        <div id="usersRating" class="rating">
+            <p>Ocena książki</p>
+            <div  data-bookid="{{this.idbooks}}" class="rate" style="--my-variable: 70%;"></div>
         </div>
         <div id="myRate" class="rating">
+            <p>Twoja ocena</p>
             <div class="rate" data-bookid="{{this.idbooks}}" data-userrate="30%" style="--my-variable: 0%;"></div>
         </div>
     </div>
@@ -32,7 +34,7 @@ oceny
                 rate: rate
             },
             success: function(response){
-                console.log(response);
+                updateRateElements();
             }
         });
     }
@@ -56,6 +58,40 @@ oceny
         });
     }
 
+    function getSingleBookRate(bookId){
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: '/rate/book',
+                method: 'GET',
+                data: {
+                    bookId: bookId
+                },
+                success: function(response) {
+                    const rate = response[0].rate;
+                    resolve(rate);
+                },
+                error: function(error) {
+                    reject(error);
+                }
+            });
+        });
+    }
+
+
+
+    function updateRateElements(){
+       $('#usersRating .rate').each(function() {
+            let bookId = $(this).data('bookid');
+            getSingleBookRate(bookId).then((rate) => {
+                $(this).css('--my-variable', rate + '%');
+            }).catch((error) => {
+                console.log(error);
+            });
+        });
+    }
+
+    updateRateElements();
+
     $('#myRate .rate').each(function() {
         let bookId = $(this).data('bookid');
         getRate(bookId).then((rate) => {
@@ -65,12 +101,7 @@ oceny
         });
     });
 
-    getRate(71).then((rate) => {
-        console.log(rate);
-    }).catch((error) => {
-        console.log(error);
-    });
-
+   
     let userRate= $('#myRate .rate').data('userrate');
     $('#myRate .rate').css('--my-variable', userRate);
 
