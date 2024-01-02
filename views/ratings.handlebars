@@ -10,21 +10,39 @@ oceny
         <p>Tytuł - {{this.title}}</p>
         <p>Autor - {{this.author}}</p>
         <p>Ocena - {{this.rate}}</p>
-        <p class="rating">
-            <span data-rate="1" class="rate"></span>
-            <span data-rate="2" class="rate"></span>
-            <span data-rate="3" class="rate"></span>
-            <span data-rate="4" class="rate"></span>
-            <span data-rate="5" class="rate"></span>
-        </p>
+        <div class="rating">
+            <div class="rate" style="--my-variable: 70%;"></div>
+        </div>
+        <div id="myRate" class="rating">
+            <div class="rate" data-userrate="30%" style="--my-variable: 0%;"></div>
+        </div>
     </div>
 {{/each}}
+
 </div>
 
 <script>
-    $('.rating').hover(function() {
-        
-    });
+
+    let userRate= $('#myRate .rate').data('userrate');
+    $('#myRate .rate').css('--my-variable', userRate);
+
+   $('#myRate .rate').on('mousemove', function(e) {
+        var elementWidth = $(this).width();
+        var offsetX = e.pageX - $(this).offset().left;
+        var percentage = (offsetX / elementWidth) * 100;
+        $(this).css('--my-variable', percentage + '%');
+
+        $(this).on('click', function() {
+            $(this).data('userrate', percentage + '%');
+            //tu wypadałoby wysłać ocene do bazy danych
+        });
+
+        $(this).on('mouseleave', function() {
+            let userRate= $(this).data('userrate');
+            $(this).css('--my-variable', userRate);
+        });
+     });
+
 </script>
 
 <script>

@@ -202,14 +202,26 @@ input[type="submit"]{
         border: 1px solid red;
       }
 
-      .ratingbooks .rating{
-        background-color: aqua;
+      .ratingbooks .rate{
+        cursor: pointer;
+        position: relative;
+        height: 15px;
+        background-color: rgb(142, 160, 142);
+      }
+      .ratingbooks .rate.active{
+        background-color: rgb(0, 99, 0);
       }
 
-      .ratingbooks .rate{
-        display: inline-block;
-        cursor: pointer;
-        width: 10px;
-        height: 10px;
-        background-color: green;
-      }
+      .ratingbooks .rate {
+        width: 100%;
+    }
+
+    .ratingbooks .rate::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: var(--my-variable);
+        height: 100%;
+        background-color: rgb(0, 99, 0);
+    }
