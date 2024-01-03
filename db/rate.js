@@ -43,7 +43,6 @@ const userRate = (user_id, book_id) => {
             if (err) {
                 reject(err);
             }
-            console.log(rows);
             resolve(rows);
         });
     });
