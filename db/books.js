@@ -4,7 +4,7 @@ let sql;
 
 //dodawanie książki do bazy
 const addBook = (title, author, year, description, userid, img) => {
-    sql = `INSERT INTO books (title, author, year, description, userid, img, date) VALUES ('${title}', '${author}', '${year}', '${description}', '${userid}', '${img}', NOW())`;
+    sql = `INSERT INTO books (title, author, year, description, userid, img, availability, date) VALUES ('${title}', '${author}', '${year}', '${description}', '${userid}', '${img}', 'A', NOW())`;
     db.query(sql, (err) => {
         if (err) {
             return console.error(err.message);
@@ -16,7 +16,7 @@ const addBook = (title, author, year, description, userid, img) => {
 //pobieranie najlepszych książek w ilości podanej w argumencie
 const getBestBooks = (numbresBooks, userId = 0) => {
     return new Promise((resolve, reject) => {
-        sql = `SELECT * FROM books WHERE availability="A" AND userid != ${userId} LIMIT ${numbresBooks}`;
+        sql = `SELECT * FROM books WHERE availability='A' AND userid != ${userId} LIMIT ${numbresBooks}`;
         db.query(sql, (err, rows) => {
             if (err) {
                 reject(err);
