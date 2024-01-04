@@ -28,7 +28,16 @@ router.post('/', (req, res) => {
 router.put('/:id', (req, res) => {
     tradeDB.updateStatusTrade(req.params.id, req.body.status)
         .then(() => {
-            res.send('trade updated');
+            tradeDB.getTradeById(req.params.id)
+                .then((trade) => {
+                   
+                booksDB.changeAvailability(trade[0].book1_id, 'NA')
+                    .then(()=>{console.log('book1 avalability NA')});
+
+                booksDB.changeAvailability(trade[0].book2_id, 'NA')
+                    .then(()=>{console.log('book2 avalability NA')});
+                        
+                });
         })
         .catch((err) => {
             console.log(err);

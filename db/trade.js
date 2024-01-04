@@ -80,10 +80,23 @@ const getTradeByUserIdWithStatus = (user_id, status) => {
     });
 };
 
+const getTradeById = (trade_id) => {
+    return new Promise((resolve, reject) => {
+        sql = `SELECT * FROM trades WHERE trade_id = '${trade_id}'`;
+        db.query(sql, (err, rows) => {
+            if (err) {
+                reject(err);
+            }
+            resolve(rows);
+        });
+    });
+};
+
 module.exports = {
     newTrade,
     updateStatusTrade,
     offeredTransactions,
     receivedTransactions,
-    getTradeByUserIdWithStatus
+    getTradeByUserIdWithStatus,
+    getTradeById
 };

@@ -119,6 +119,19 @@ const getBookById = (id) => {
     });
 };
 
+const changeAvailability = (id, availability) => {
+    return new Promise((resolve, reject) => {
+        sql = `UPDATE books SET availability='${availability}' WHERE idbooks=${id}`;
+        db.query(sql, (err) => {
+            if (err) {
+                reject(err);
+            }
+            console.log(`Row(s) updated`);
+            resolve();
+        });
+    });
+};
+
 module.exports = {
     addBook,
     getBooksByUserId,
@@ -128,5 +141,6 @@ module.exports = {
     getBestBooks,
     getLastBooks,
     getBooksByUserIdLimit,
-    getBookById
+    getBookById,
+    changeAvailability
 }
