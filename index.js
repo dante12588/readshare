@@ -33,6 +33,7 @@ handlebars.registerHelper('eq', function(a, b) {
 
 handlebars.registerPartial('modal', fs.readFileSync(__dirname + '/views/partials/modal.handlebars', 'utf8'));
 handlebars.registerPartial('bestBooks', fs.readFileSync(__dirname + '/views/partials/bestbooks.handlebars', 'utf8'));
+handlebars.registerPartial('lastBooks', fs.readFileSync(__dirname + '/views/partials/lastbooks.handlebars', 'utf8'));
 
 
 app.engine('handlebars', hbs.engine({

@@ -1,0 +1,18 @@
+<div class="books-section">
+    <h2 class="title" >Ostatnio dodane książki</h2>
+    <div class="books">
+        {{#each lastBooks}}
+            <div class="book">
+                <img src="uploads/{{this.img}}" alt="{{this.title}}">
+                <div class="info">
+                    <p>{{this.title}}</p>
+                    <p>{{this.author}}</p>
+                </div>
+                <div class="actions">
+                    <a href="#" class="exchange-book" id="exchange-book" data-bookid="{{this.idbooks}}">Wymiana</a>
+                    <a href="#">Informacje</a>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div>

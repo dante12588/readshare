@@ -8,14 +8,17 @@ const rateDb = require('../db/rate');
 router.get('/', (req, res) => {
     bookDb.getBestBooks(5, req.session.userId)
         .then(bestBooks => {
-            return bookDb.getLastBooks(2)
+            return bookDb.getLastBooks(5)
                 .then(lastBooks => {
+                    const userid = req.session.userId;
+                    let filteredBooks = lastBooks.filter(book => book.userid !== userid);
+                    
                     res.render('home', {
                         title: 'Strona główna',
                         userName: req.session.userName,
                         id: req.session.userId,
                         bestBooks: bestBooks,
-                        lastBooks: lastBooks
+                        lastBooks: filteredBooks
                     });
                 });
         })
