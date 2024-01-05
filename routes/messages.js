@@ -4,9 +4,15 @@ const messageDB = require('../db/messages');
 //send message
 router.post('', (req, res) => {
     const message = req.body.message;
-    const sender = req.session.userId;
-    const receiver = req.body.receiver;
+    let sender = req.body.sender;
+    let receiver = req.body.receiver;
     const tradeId = req.body.tradeId;
+
+    if(req.session.userId != sender) {
+        let pom = sender;
+        sender = receiver;
+        receiver = pom;
+    }
 
     console.log(message, sender, receiver);
 
@@ -24,11 +30,10 @@ router.post('', (req, res) => {
 
 //get messages
 router.get('/', (req, res) => {
-    const sender = req.session.userId;
     const receiver = req.query.receiver;
     const tradeId = req.query.tradeId;
-    console.log(sender, receiver);
-    messageDB.getMessages(sender, receiver, tradeId)
+    const userid2 = req.query.userId2;
+    messageDB.getMessages(userid2, receiver, tradeId)
     .then(messages => {
         res.json(messages);
     })

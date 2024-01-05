@@ -20,7 +20,7 @@
 
 <h2>Zaakceptowane oferty</h2>
 {{#each acceptedTrades}}
-<p>{{this.book1_id}} - {{this.book2_id}} | <a class="contact" data-tradeId="{{this.trade_id}}" data-userid="{{this.user2_id}}" href="">Kontakt</a></p>
+<p>{{this.book1_id}} - {{this.book2_id}} | <a class="contact" data-tradeId="{{this.trade_id}}" data-userid="{{this.user2_id}}" data-userid2="{{this.user1_id}}" href="">Kontakt</a></p>
 {{/each}}
 
 <h2>Odrzucone oferty</h2>
@@ -35,6 +35,7 @@
     var span = document.getElementsByClassName("close")[0];
     let tradeId;
     let userId;
+    let userId2;
     
     $('#sendMessage').click(() => {
         let message = $('input[name=message]').val();
@@ -45,6 +46,7 @@
             type: 'POST',
             data: {
                 message: message,
+                sender: userId2,
                 receiver: receiver,
                 tradeId: tradeId
             },
@@ -75,12 +77,14 @@
             $('#messages').empty();
             tradeId = $(el).data('tradeid');
             userId = $(el).data('userid');
+            userId2 = $(el).data('userid2');
             $.ajax({
                 url: 'messages',
                 type: 'GET',
                 data: {
                     receiver: userId,
-                    tradeId: tradeId
+                    tradeId: tradeId,
+                    userId2: userId2
                 },
                 success: (data) => {
                     data.forEach((el) => {
