@@ -15,6 +15,19 @@ const newTrade = (book1, book2, user1, user2) => {
     });
 };
 
+// check if trade already exists
+const checkExistingTrade = (book2, user1, user2) => {
+    return new Promise((resolve, reject) => {
+        sql = `SELECT * FROM trades WHERE book2_id = '${book2}' AND user1_id = '${user1}' AND user2_id = '${user2}' AND status = 'pending'`;
+        db.query(sql, (err, rows) => {
+            if (err) {
+                reject(err);
+            }
+            resolve(rows);
+        });
+    });
+};
+
 // get all transactions where user is sender
 const offeredTransactions = (user_id) => {
     return new Promise((resolve, reject) => {
@@ -98,5 +111,6 @@ module.exports = {
     offeredTransactions,
     receivedTransactions,
     getTradeByUserIdWithStatus,
-    getTradeById
+    getTradeById,
+    checkExistingTrade
 };

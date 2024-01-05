@@ -11,14 +11,23 @@ router.post('/', (req, res) => {
         .then((book) => {
             let data = JSON.parse(book);
             //(book1, book2, user1, user2)
-            tradeDB.newTrade(req.body.book1Id, req.body.book2Id, req.session.userId, data.userid)
-                .then(() => {
-                    res.send('trade created');
-                })
-                .catch((err) => {
-                    console.log(err);
-                    res.send('error creating trade');
+
+            tradeDB.checkExistingTrade(req.body.book2Id, req.session.userId, data.userid)
+                .then((result) => {
+                    if (result.length > 0) {
+                        return res.sendStatus(409);
+                    }else{
+                        tradeDB.newTrade(req.body.book1Id, req.body.book2Id, req.session.userId, data.userid)
+                            .then(() => {
+                                res.send('trade created');
+                            })
+                            .catch((err) => {
+                                console.log(err);
+                                return res.send('error creating trade');
+                            });
+                    }
                 });
+
         }).catch((err) => {
             console.log(err);
         });
