@@ -6,18 +6,22 @@ const tradeDb = require('../db/trade');
 const rateDb = require('../db/rate');
 
 router.get('/', (req, res) => {
-    bookDb.getBestBooks(5, req.session.userId)
+    bookDb.getBestBooks(20)
         .then(bestBooks => {
-            return bookDb.getLastBooks(5)
+            const userid = req.session.userId;
+            let filteredBestBooks = bestBooks.filter(book => book.userid !== userid);
+            filteredBestBooks = filteredBestBooks.slice(0, 5);
+            return bookDb.getLastBooks(20)
                 .then(lastBooks => {
                     const userid = req.session.userId;
-                    let filteredBooks = lastBooks.filter(book => book.userid !== userid);
+                    let filteredLastBooks = lastBooks.filter(book => book.userid !== userid);
+                    filteredLastBooks = filteredLastBooks.slice(0, 5);
                     res.render('home', {
                         title: 'Strona główna',
                         userName: req.session.userName,
                         id: req.session.userId,
-                        bestBooks: bestBooks,
-                        lastBooks: filteredBooks
+                        bestBooks: filteredBestBooks,
+                        lastBooks: filteredLastBooks
                     });
                 });
         })

@@ -14,9 +14,14 @@ const addBook = (title, author, year, description, userid, img) => {
 };
 
 //pobieranie najlepszych książek w ilości podanej w argumencie
-const getBestBooks = (numbresBooks, userId = 0) => {
+const getBestBooks = (numbresBooks) => {
+   sql = `SELECT books.idbooks, books.title, books.img, books.userid ,AVG(ratings.rate) as average_rating
+            FROM books
+            JOIN ratings ON books.idbooks = ratings.book_id
+            GROUP BY books.idbooks, books.title
+            ORDER BY average_rating DESC
+            LIMIT ${numbresBooks};`
     return new Promise((resolve, reject) => {
-        sql = `SELECT * FROM books WHERE availability='A' AND userid != ${userId} LIMIT ${numbresBooks}`;
         db.query(sql, (err, rows) => {
             if (err) {
                 reject(err);
