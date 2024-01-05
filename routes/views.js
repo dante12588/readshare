@@ -12,7 +12,6 @@ router.get('/', (req, res) => {
                 .then(lastBooks => {
                     const userid = req.session.userId;
                     let filteredBooks = lastBooks.filter(book => book.userid !== userid);
-                    
                     res.render('home', {
                         title: 'Strona główna',
                         userName: req.session.userName,
