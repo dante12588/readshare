@@ -83,7 +83,7 @@ const updateStatusTrade = (trade_id, status) => {
 
 const getTradeByUserIdWithStatus = (user_id, status) => {
     return new Promise((resolve, reject) => {
-        sql = `SELECT * FROM trades WHERE user2_id = '${user_id}' AND status = '${status}'`;
+        sql = `SELECT * FROM trades WHERE (user1_id = '${user_id}' OR user2_id = '${user_id}') AND status = '${status}'`;
         db.query(sql, (err, rows) => {
             if (err) {
                 reject(err);

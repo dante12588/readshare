@@ -55,7 +55,19 @@
         });
     });
 
-    
+    function getUserTradeWithStatus(status){
+        $.ajax({
+            url: `trade/user`,
+            type: 'GET',
+            data: {
+                status: status
+            },
+            success: (data) => {
+                return data;
+            }
+        });
+    }
+
 
     btn.forEach((el) => {
         el.addEventListener('click', (e) => {

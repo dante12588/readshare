@@ -54,6 +54,12 @@ router.put('/:id', (req, res) => {
         });
 });
 
+router.get('/user', (req, res) => {
+    tradeDB.getTradeByUserIdWithStatus(req.session.userId, req.query.status)
+        .then((data)=>{
+            res.send(data);
+        });
+});
 
 
 module.exports = router;
