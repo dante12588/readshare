@@ -5,4 +5,42 @@
 {{>lastBooks}}
 
 
+<script>
+
+    function getBookDescription(bookId, callback){
+        $.ajax({
+            url: `books/id`,
+            method: 'POST',
+            data: {
+                id: bookId
+            },
+            success: function(data){
+                callback(data);
+            },
+        });
+    }    
+
+    $('.books .book').hover(function(){
+        let div = $('<div>', {class: 'desciption'});
+        let bookId = $(this).attr('data-id');
+        if(bookId == undefined) return;
+        let bookDescription = getBookDescription(bookId, function(data){
+            data = JSON.parse(data);
+            let title = $('<h3>', {text: data.title});
+            let author = $('<p>', {text: data.author});
+            let description = $('<p>', {text: data.description});
+            let year = $('<p>', {text: data.year});
+            div.append(title);
+            div.append(author);
+            div.append(description);
+            div.append(year);
+        });
+        $(this).after(div);
+    }, function(){
+        $('.desciption').remove();
+        }
+    );
+
+</script>
+
 <script src="js/home.js"></script>

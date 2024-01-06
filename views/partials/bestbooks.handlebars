@@ -2,7 +2,7 @@
     <h2 class="title" >Najbardziej polularne propozycje</h2>
     <div class="books">
         {{#each bestBooks}}
-            <div class="book">
+            <div class="book" data-id="{{this.idbooks}}">
                 <img src="uploads/{{this.img}}" alt="{{this.title}}">
                 <div class="info">
                     <p>{{this.title}}</p>
