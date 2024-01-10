@@ -6,11 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
-    "build-css": "node-sass src/scss/ -o public/css/",
-    "watch-css": "npm run build-css && node-sass src/scss/ -o public/css/ --watch --recursive",
+    "build-css": "sass src/scss/main.scss public/css/main.css",
+    "watch-css": "npm run build-css && sass src/scss/main.scss public/css/main.css --watch",
     "start": "nodemon app.js & browser-sync start --proxy 'localhost:4000' --files 'views/*'",
-    "dev": "npm run watch-css & nodemon app.js & browser-sync start --proxy 'localhost:4000' --files 'views/**/*.*, public/css/*'"
-  },
+    "dev": "npm run watch-css & nodemon app.js & browser-sync start --proxy 'localhost:4000' --files 'views/*, public/css/*'"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -29,6 +29,7 @@
     "express-validator": "^7.0.1",
     "handlebars": "^4.7.8",
     "method-override": "^3.0.0",
-    "multer": "^1.4.5-lts.1"
+    "multer": "^1.4.5-lts.1",
+    "sass": "^1.69.7"
   }
 }
