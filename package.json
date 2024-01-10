@@ -6,7 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
-    "start": "nodemon app.js & browser-sync start --proxy 'localhost:4000' --files 'views/*'"
+    "build-css": "node-sass src/scss/ -o public/css/",
+    "watch-css": "npm run build-css && node-sass src/scss/ -o public/css/ --watch --recursive",
+    "start": "nodemon app.js & browser-sync start --proxy 'localhost:4000' --files 'views/*'",
+    "dev": "npm run watch-css & nodemon app.js & browser-sync start --proxy 'localhost:4000' --files 'views/**/*.*, public/css/*'"
   },
   "keywords": [],
   "author": "",
@@ -18,6 +21,7 @@
     "express-handlebars": "^7.1.2",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
+    "node-sass": "^9.0.0",
     "nodemon": "^3.0.1"
   },
   "dependencies": {
