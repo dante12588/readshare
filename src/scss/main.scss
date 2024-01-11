@@ -45,7 +45,7 @@ footer{
     height: calc(100vw * 0.57);
     display: grid;
     
-    grid-template-columns: 1.23fr .1fr .13fr .13fr 1.2fr .14fr .15fr .11fr .86fr .05fr .24fr;
+    grid-template-columns: 1.18fr .11fr .13fr .13fr 1.14fr .14fr .05fr .1fr .11fr .86fr .05fr .24fr;
     grid-template-rows: .3fr .3fr .1fr 1fr;
     &__text{
         background-image: url('/images/readshare.png');
@@ -75,27 +75,38 @@ footer{
         grid-row: 1 / 2;
         grid-column: 2 / 3;
         transform-origin: center top;
-        animation: lamp1 2s ease-in-out infinite;
         animation-fill-mode: forwards;
     }
     &__lamp1{
         background-image: url('/images/lampa1.png');
         grid-column: 2 / 3;
         grid-row: 1 / 2;
+        animation: lamp1 2s ease-in-out infinite;
     }
     &__lamp2{
         background-image: url('/images/lampa2.png');
         grid-column: 4 / 5;
         grid-row: 1 / 2;
+        animation: lamp2 2.6s ease-in-out infinite;
     }
     &__lamp3{
         background-image: url('/images/lampa3.png');
         grid-column: 6 / 7;
         grid-row: 1 / 2;
+        animation: lamp2 2.5s ease-in-out infinite;
     }
     &__lamp4{
         background-image: url('/images/lampa4.png');
-        grid-column: 8 / 9;
+        grid-column: 9 / 10;
+        grid-row: 1 / 2;
+        animation: lamp1 2.2s ease-in-out infinite;
+    }
+    &__star{
+        background-image: url('/images/star.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        grid-column: 11 / 12;
         grid-row: 1 / 2;
     }
 }
@@ -135,14 +146,5 @@ footer{
     }
 }
 
-@keyframes lamp3 {
-    0%{
-        transform: rotate(-1deg);
-    }
-    50%{
-        transform: rotate(1deg);
-    }
-    100%{
-        transform: rotate(-1deg);
-    }
-}
+
+
