@@ -45,7 +45,7 @@ footer{
     height: calc(100vw * 0.57);
     display: grid;
     
-    grid-template-columns: .83fr .1fr 1.1fr 1fr;
+    grid-template-columns: 1.23fr .1fr .13fr .13fr 1.2fr .14fr .15fr .11fr .86fr .05fr .24fr;
     grid-template-rows: .3fr .3fr .1fr 1fr;
     &__text{
         background-image: url('/images/readshare.png');
@@ -68,8 +68,7 @@ footer{
         animation-delay: .1s;
         opacity: 0;
     }
-    &__lamp1{
-        background-image: url('/images/lampa1.png');
+    &__lamp{
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
@@ -79,11 +78,25 @@ footer{
         animation: lamp1 2s ease-in-out infinite;
         animation-fill-mode: forwards;
     }
-}
-
-.lamp1{
-    &--on{
-        animation: lamp2 2s ease-in-out infinite;
+    &__lamp1{
+        background-image: url('/images/lampa1.png');
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
+    }
+    &__lamp2{
+        background-image: url('/images/lampa2.png');
+        grid-column: 4 / 5;
+        grid-row: 1 / 2;
+    }
+    &__lamp3{
+        background-image: url('/images/lampa3.png');
+        grid-column: 6 / 7;
+        grid-row: 1 / 2;
+    }
+    &__lamp4{
+        background-image: url('/images/lampa4.png');
+        grid-column: 8 / 9;
+        grid-row: 1 / 2;
     }
 }
 
