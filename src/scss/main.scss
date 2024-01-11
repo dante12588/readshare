@@ -1,2 +1,135 @@
-@use 'abstracts';
-@use 'base';
+//@use 'abstracts';
+//@use 'vendors';
+//@use 'base';
+//@use 'utilities';
+//@use 'components';
+//@use 'pages';
+//@use 'themes';
+
+*{
+    block-size: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+nav{
+    display: flex;
+    justify-content: space-between;
+}
+
+nav .logo{
+    background-color: red;
+}
+
+nav .links{
+background-color: blue;
+}
+
+nav .icons{
+    background-color: green;
+}
+
+.content{
+
+}
+
+footer{
+    background-color: yellow;
+}
+
+.hero-image{
+    background-image: url('/images/hero-img-5.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: calc(100vw * 0.57);
+    display: grid;
+    
+    grid-template-columns: .83fr .1fr 1.1fr 1fr;
+    grid-template-rows: .3fr .3fr .1fr 1fr;
+    &__text{
+        background-image: url('/images/readshare.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        grid-row: 2/3;
+        grid-column: 2/3;
+        animation: fadeIn .8s ease-in-out forwards;
+        opacity: 0;
+    }
+    &__line{
+        background-image: url('/images/line-hero.png');
+        background-size: 70%;
+        background-repeat: no-repeat;
+        background-position: center;
+        grid-row: 3/4;
+        grid-column: 2/3;
+        animation: fadeIn .8s ease-in-out forwards;
+        animation-delay: .1s;
+        opacity: 0;
+    }
+    &__lamp1{
+        background-image: url('/images/lampa1.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        grid-row: 1 / 2;
+        grid-column: 2 / 3;
+        transform-origin: center top;
+        animation: lamp1 2s ease-in-out infinite;
+        animation-fill-mode: forwards;
+    }
+}
+
+.lamp1{
+    &--on{
+        animation: lamp2 2s ease-in-out infinite;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+@keyframes lamp1 {
+    0%{
+        transform: rotate(-3deg);
+    }
+    50%{
+        transform: rotate(3deg);
+    }
+    100%{
+        transform: rotate(-3deg);
+    }
+}
+
+@keyframes lamp2 {
+    0%{
+        transform: rotate(-2deg);
+    }
+    50%{
+        transform: rotate(2deg);
+    }
+    100%{
+        transform: rotate(-2deg);
+    }
+}
+
+@keyframes lamp3 {
+    0%{
+        transform: rotate(-1deg);
+    }
+    50%{
+        transform: rotate(1deg);
+    }
+    100%{
+        transform: rotate(-1deg);
+    }
+}
