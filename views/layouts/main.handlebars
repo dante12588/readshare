@@ -11,22 +11,25 @@
         <div class="content">
             <nav>
                 <div class="logo">
-                    <a href="/">ReadShare</a>
+                    <a href="/">
+                        <img src="images/logo-3.png" alt="">
+                    </a>
                 </div>
-                <div class="links">
+                <div class="links menu-animation">
                     <a href="/">Znajdz książkę</a>
                     <a href="/ratings">Oceń książkę</a>
                     <a href="/offerted">Oferty</a>
                     <a href="/mybooks">Moje książki</a>
                 </div>
-                <div class="icons">
+                <div class="icons menu-animation">
                     {{#if userName}}
                         <a href="/addbook">+</a>
                         <a href="/">K</a>
                         
                         <a href="/users/logout">W</a>
                     {{else}}
-                        <a href="/login">Z</a>
+                        <a class="login" href="/login">Zaloguj się</a>
+                        <a class="login" href="/login">Zarejestruj się</a>
                     {{/if}}
                 </div>
             </nav>
@@ -37,7 +40,10 @@
                 <span class="hero-image__lamp2 hero-image__lamp"></span>
                 <span class="hero-image__lamp3 hero-image__lamp"></span>
                 <span class="hero-image__lamp4 hero-image__lamp"></span>
-                 <span class="hero-image__star"></span>
+                <span class="hero-image__star"></span>
+                <span class="hero-image__btn1">Wymieniaj się książkami i coś tam</span>
+                <span class="hero-image__btn2"></span>
+                <span class="hero-image__btn3"></span>
             </div>
             {{{body}}}
         </div>
@@ -46,3 +52,38 @@
         </footer>
     </body>
     </html>
+
+
+<script>
+
+    // Dzielenie tekstu na pojedyncze znaki i dodanie ich do spana
+    $('nav .menu-animation a').each(function(){
+        const itemMenu = $(this).text() ;
+        $(this).empty();
+        for(ele of itemMenu ){
+            let = span = $('<span></span>').text(ele);
+            $(this).append(span);
+        }     
+    });
+
+    // Animacja po najechaniu na link
+    $('nav .menu-animation a').hover(function(){
+        console.log('działa');
+
+        $(this).find('span').each(function(index){
+            let element = $(this);
+            setTimeout(function(){
+                element.addClass('anime');
+            }, index * 30);
+            element.removeClass('anime');
+        });
+        
+    }, function(){
+        $(this).find('span').each(function(index){
+                let element = $(this);
+                element.removeClass('anime');
+            });
+    });
+
+
+</script>
