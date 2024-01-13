@@ -2,7 +2,7 @@
 //@use 'vendors';
 @use 'base';
 //@use 'utilities';
-//@use 'components';
+@use 'components';
 //@use 'pages';
 //@use 'themes';
 
@@ -11,6 +11,9 @@
     padding: 0;
     margin: 0;
     font-family: 'Amatic SC';
+}
+body{
+    overflow: hidden;
 }
 
 nav{
@@ -167,7 +170,9 @@ footer{
         background-repeat: no-repeat;
         background-position: center;
         grid-column: 12 / 13;
+        cursor: pointer;
         grid-row: 3 / 4;
+        animation: start 5s linear infinite;
     }
     &__btn1{
         background-image: url('/images/btn-dark1.png');
@@ -250,4 +255,13 @@ footer{
 
 .icons .login img{
     max-width: 50px;
+}
+
+@keyframes start {
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
 }

@@ -1,5 +1,31 @@
+<div class="modal">
+    <div class="modal__content">
+        <div class="modal__close"></div>
+        {{!-- <div class="modal__title">Zaloguj się</div> --}}
+        <form action="/login" method="post">
+            <div>
+                <input type="text" name="email" placeholder="email">
+            </div>
+            <div>
+                <input type="password" name="password" placeholder="hasło">
+            </div>
+            {{!-- <button type="submit">Zaloguj</button> --}}
+        </form>
+        <button type="submit">Zaloguj</button>
+    </div>
+</div>
+
 <script>
-    setTimeout(function() {
-        $('.hero-image__lamp1').addClass('lamp1--on');
-    }, 2000);
+    const modal = $('.modal');
+    const btnLogin = $('a.login');
+    
+    btnLogin.on('click', function(e) {
+        e.preventDefault();
+        modal.addClass('modal--active');
+
+        const modalClose = $('.modal__close');
+        modalClose.on('click', function() {
+            modal.removeClass('modal--active');
+        });
+    });
 </script>
