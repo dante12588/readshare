@@ -1,7 +1,7 @@
 .last-books{
     color: #fff9ce;
     max-width: 80%;
-    margin: 50px auto;
+    margin: 100px auto;
 
     .books{
         display: flex;
@@ -22,6 +22,79 @@
 
     .book:first-child{
         padding-left: 30px;
+    }
+
+    .cover{
+        display: flex;
+        align-items: center;
+
+        &:hover{
+            .ocena{
+                opacity: 0;   
+                transition: none;   
+            }
+        }
+
+        img{
+            opacity: 0;
+        }
+    }
+
+    .cover.book-anim img{
+        animation: book 1s ease-in-out forwards;
+    }
+
+    .stars{
+        margin-left: 5px;
+        flex-direction: column;
+        position: relative;
+        .ocena{
+            left: 10px;
+            bottom: 30px;
+            font-size: 25px;
+            position: absolute;
+            font-weight: bold;
+            transition: all 0.5s ease-in-out;
+            color: red;
+        }
+
+        .star{
+            display: block;
+            width: 26px;
+            height: 23px;
+            margin: 7px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-image: url('/images/starn.png');
+            cursor: pointer;
+
+            &:hover{
+                background-image: url('/images/starf.png'); 
+            }
+
+            transition: all 0.5s ease-in-out;
+
+            &.animate{
+                transform: translateY( 0 );
+            }
+        }
+
+        .star1{
+            transform: translateY( calc( 500% + 5px) );
+        }
+
+        .star2{
+            transform: translateY( calc( 400% - 2px) );
+        }
+
+        .star3{
+            transform: translateY( calc( 300% - 9px) );
+        }
+
+        .star4{
+            transform: translateY( calc( 200% - 16px) );
+        }
+
     }
 
     
@@ -53,6 +126,8 @@
         font-size: 40px;
         max-height: 50px;
         margin-bottom: 20px;
+        z-index: 2;
+        position: relative;
     }
 
     .title{
@@ -60,5 +135,15 @@
         font-size: 30px;
         max-width: 80%;
         max-height: 100px;
+    }
+}
+
+@keyframes book {
+    0%{
+        transform: translateY( -70% );
+    }
+    100%{
+        opacity: 1;
+        transform: translateY( 0 );
     }
 }
