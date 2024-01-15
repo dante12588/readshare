@@ -15,6 +15,59 @@
     </div>
 </div>
 
+
+
+<div class="content">
+    
+    <div class="last-books">
+        <h2 class="h">Ostatnio dodane</h2>
+        <div class="books">
+            <div class="book">
+                <h3 class="author">Philip K. Dick</h3>
+                <div class="cover">
+                    <img class="image" src="images/book1.png" alt="">
+                    <div class="stars"></div>
+                </div>
+                <h4 class="title">Płyńcie łzy moje, rzekł policjant</h4>
+            </div>
+            <div class="book">
+                <h3 class="author">Philip K. Dick</h3>
+                <div class="cover">
+                    <img class="image" src="images/book2.png" alt="">
+                    <div class="stars"></div>
+                </div>
+                <h4 class="title">Płyńcie łzy moje, rzekł policjant</h4>
+            </div>
+            <div class="book">
+                <h3 class="author">Philip K. Dick</h3>
+                <div class="cover">
+                    <img class="image" src="images/book3.png" alt="">
+                    <div class="stars"></div>
+                </div>
+                <h4 class="title">Płyńcie łzy moje, rzekł policjant</h4>
+            </div>
+            <div class="book">
+                <h3 class="author">Philip K. Dick</h3>
+                <div class="cover">
+                    <img class="image" src="images/book4.png" alt="">
+                    <div class="stars"></div>
+                </div>
+                <h4 class="title">Płyńcie łzy moje, rzekł policjant</h4>
+            </div>
+            <div class="book">
+                <h3 class="author">Philip K. Dick</h3>
+                <div class="cover">
+                    <img class="image" src="images/book5.png" alt="">
+                    <div class="stars"></div>
+                </div>
+                <h4 class="title">Płyńcie łzy moje, rzekł policjant</h4>
+            </div>
+        </div>
+        
+    </div>
+
+</div>
+
 <script>
     const modal = $('.modal');
     const btnLogin = $('a.login');
@@ -28,4 +81,18 @@
             modal.removeClass('modal--active');
         });
     });
+
+    $(window).scroll(function() {
+    var scrollTop = $(this).scrollTop();
+    var opacity = 1 - (scrollTop / 800);
+    var x = Math.floor(opacity * 100);
+    console.log(x);
+    var css = `brightness(${x}%)`;
+    console.log(css);
+
+    if(opacity >= 0) {
+        $('.hero-image').css('filter', css);
+    }
+});
+
 </script>

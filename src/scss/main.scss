@@ -13,7 +13,7 @@
     font-family: 'Amatic SC';
 }
 body{
-    overflow: hidden;
+    // overflow: hidden;
 }
 
 nav{
@@ -22,7 +22,9 @@ nav{
     padding-top: 10px;
     justify-content: space-between;
     background-image: url('/images/bg.png');
-    margin-bottom: -50px;
+    // margin-bottom: -40px;
+    // z-index: 999;
+    // position: relative;
 }
 a{
     text-decoration: none;
@@ -93,11 +95,12 @@ nav .icons{
 }
 
 .content{
-
+    height: 500vw;
+    background-color: black;
 }
 
 footer{
-    background-color: yellow;
+    
 }
 
 .hero-image{
